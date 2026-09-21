@@ -1,0 +1,1748 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HomePro Expo 2026 - Booth Project Dashboard</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: rgba(150, 150, 150, 0.3); border-radius: 3px; }
+    ::-webkit-scrollbar-thumb:hover { background: rgba(150, 150, 150, 0.5); }
+    .badge-pill { display: inline-flex; align-items: center; padding: 2px 10px; border-radius: 9999px; font-size: 11px; font-weight: 600; }
+  </style>
+</head>
+<body class="bg-slate-50 text-slate-900 antialiased p-4 md:p-6 min-h-screen dark:bg-slate-950 dark:text-slate-100">
+
+  <!-- TOP HEADER & BRANDING BAR -->
+  <header class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 mb-6 shadow-sm">
+    <div class="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <div>
+        <div class="flex flex-wrap items-center gap-2 mb-1">
+          <span class="badge-pill bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">EXHIBITION PROJECT SUITE</span>
+          <span class="badge-pill bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">IMPACT HALL 8-9</span>
+          <span class="badge-pill bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">BOOTH 2 x 3.6 M (7.2 SQM)</span>
+          <span class="badge-pill bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20">MEGA HOME TRANSFER READY</span>
+        </div>
+        <h1 class="text-2xl font-bold tracking-tight flex items-center gap-2">
+          HomePro Expo Project Management & Daily Tracking
+        </h1>
+        <p class="text-sm text-slate-500 dark:text-slate-400 mt-1">
+          แผนบริหารโครงการจัดบูธสินค้า <b>TOYOX (สายยางญี่ปุ่น)</b> & <b>พญานาค (อุปกรณ์หัวฉีดทองเหลือง)</b> | รวมแผนตัดโอนสต็อกจากสาขาเมกาโฮม
+        </p>
+      </div>
+      
+      <!-- Countdown & Quick Stats -->
+      <div class="flex items-center gap-3 bg-slate-100 dark:bg-slate-800 p-3 rounded-xl border border-slate-200 dark:border-slate-700">
+        <div class="text-center px-3 border-r border-slate-200 dark:border-slate-700">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">ระยะเตรียมงาน</div>
+          <div class="text-xl font-bold text-blue-600 dark:text-blue-400">45 วัน</div>
+        </div>
+        <div class="text-center px-3 border-r border-slate-200 dark:border-slate-700">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">ความคืบหน้างาน</div>
+          <div class="text-xl font-bold text-emerald-600 dark:text-emerald-400" id="overall-progress-pct">0%</div>
+        </div>
+        <div class="text-center px-3">
+          <div class="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase">งานเสร็จแล้ว</div>
+          <div class="text-xl font-bold text-slate-900 dark:text-slate-100" id="tasks-done-count">0/29</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Progress Bar -->
+    <div class="mt-4 pt-3 border-t border-slate-200 dark:border-slate-800">
+      <div class="flex justify-between text-xs text-slate-500 dark:text-slate-400 mb-1">
+        <span>Overall Project Completion</span>
+        <span id="progress-status-label">อยู่ระหว่างดำเนินงานตามแผน D-45</span>
+      </div>
+      <div class="w-full h-2.5 bg-slate-200 dark:bg-slate-800 rounded-full overflow-hidden">
+        <div id="progress-bar-fill" class="h-full bg-gradient-to-r from-blue-500 to-emerald-500 transition-all duration-300" style="width: 0%;"></div>
+      </div>
+    </div>
+  </header>
+
+  <!-- KPI SUMMARY CARDS -->
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+      <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-2">
+        <span>ขนาดพื้นที่ & บูธ</span>
+        <svg class="w-4 h-4 text-blue-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"></path></svg>
+      </div>
+      <div class="text-xl font-bold">2.0 × 3.6 ม. (7.2 ตร.ม.)</div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">ผังแบบ 6 Pallets (Grid 2×3) ทางเดินล้อม 1.3 - 1.5 ม.</p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+      <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-2">
+        <span>Hero Focus Brands</span>
+        <svg class="w-4 h-4 text-emerald-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z"></path></svg>
+      </div>
+      <div class="text-xl font-bold">TOYOX + พญานาค</div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">กลยุทธ์ Bulky Hose + Impulse High-margin Fitting</p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+      <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-2">
+        <span>คลังสำรอง & เมกาโฮม</span>
+        <svg class="w-4 h-4 text-orange-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"></path></svg>
+      </div>
+      <div class="text-xl font-bold text-orange-600 dark:text-orange-400">Mega Home Transfer</div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">โอนสต็อกจากสาขาใกล้เคียง ลดต้นทุนผลิตสต็อกใหม่</p>
+    </div>
+
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-xl p-4 shadow-sm">
+      <div class="flex items-center justify-between text-slate-500 dark:text-slate-400 text-xs font-medium mb-2">
+        <span>กฎจำกัดความสูง & Demo</span>
+        <svg class="w-4 h-4 text-amber-500" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"></path></svg>
+      </div>
+      <div class="text-xl font-bold text-amber-600 dark:text-amber-400">Max สูง 1.80 ม. / Dry Demo</div>
+      <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">ห้ามน้ำเปียกพื้นพาเลท ใช้ Cross-section Test</p>
+    </div>
+  </div>
+
+  <!-- NAVIGATION TABS -->
+  <div class="flex flex-wrap gap-2 border-b border-slate-200 dark:border-slate-800 pb-3 mb-6">
+    <button onclick="switchTab('tab-tracker')" id="btn-tab-tracker" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-blue-600 text-white shadow-sm">
+      📋 ตาราง Daily Tracking (D-45 ถึง D-Day)
+    </button>
+    <button onclick="switchTab('tab-sales')" id="btn-tab-sales" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800">
+      📊 รายงานยอดขาย & ตัดสต็อก (Sales & Stock)
+    </button>
+    <button onclick="switchTab('tab-megahome')" id="btn-tab-megahome" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800">
+      📦 ขั้นตอนโอนสต็อกเมกาโฮม (SOP)
+    </button>
+    <button onclick="switchTab('tab-planogram')" id="btn-tab-planogram" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800">
+      📐 ผังบูธ 2D Planogram (6 Pallets)
+    </button>
+    <button onclick="switchTab('tab-budget')" id="btn-tab-budget" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800">
+      💰 โครงสร้างงบประมาณตามหลักสากล (UFI Standard)
+    </button>
+    <button onclick="switchTab('tab-audit')" id="btn-tab-audit" class="px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800">
+      🛡️ 5 กฎเหล็ก & จุดเสี่ยงต้องตรวจ (Audit & Risk)
+    </button>
+  </div>
+
+  <!-- TAB 1: DAILY TRACKING TABLE -->
+  <section id="tab-tracker" class="space-y-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold">ตารางบริหารงานรายวันและกำหนดส่งมอบ (WBS Daily Tracking)</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">รวม 29 งานหลัก ตั้งแต่ D-45 จนถึงวันปิดบูธและโอนสต็อกคืน (คลิกปุ่มสถานะเพื่อคำนวณ % ความคืบหน้า)</p>
+        </div>
+        
+        <!-- Filters -->
+        <div class="flex flex-wrap items-center gap-2">
+          <input type="text" id="task-search" oninput="filterTasks()" placeholder="ค้นหางาน, เมกาโฮม, ผู้รับผิดชอบ..." class="px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-blue-500 w-52">
+          
+          <select id="category-filter" onchange="filterTasks()" class="px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none">
+            <option value="ALL">ทุกหมวดหมู่งาน (All Categories)</option>
+            <option value="Mega Home">📦 แผนโอนสินค้าเมกาโฮม (Mega Home Transfer)</option>
+            <option value="Operation">Operation & Production</option>
+            <option value="Marketing">Marketing & POSM</option>
+            <option value="Logistics">Logistics & Inventory</option>
+            <option value="Staff">Staff & Sales Operation</option>
+          </select>
+
+          <select id="status-filter" onchange="filterTasks()" class="px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none">
+            <option value="ALL">ทุกสถานะ (All Statuses)</option>
+            <option value="Done">เสร็จสิ้น (Done)</option>
+            <option value="In Progress">กำลังทำ (In Progress)</option>
+            <option value="To Do">รอดำเนินการ (To Do)</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Table Container -->
+      <div class="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="bg-slate-50 dark:bg-slate-800/60 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+            <tr>
+              <th class="p-3 font-semibold w-16 text-center">Countdown</th>
+              <th class="p-3 font-semibold w-36">หมวดหมู่</th>
+              <th class="p-3 font-semibold">รายละเอียดงาน (Task Description)</th>
+              <th class="p-3 font-semibold">สิ่งที่ต้องส่งมอบ (Deliverables)</th>
+              <th class="p-3 font-semibold w-28">ผู้รับผิดชอบ</th>
+              <th class="p-3 font-semibold w-32 text-center">สถานะ (คลิกเปลี่ยน)</th>
+            </tr>
+          </thead>
+          <tbody id="task-table-body" class="divide-y divide-slate-200 dark:divide-slate-800 font-normal">
+            <!-- Dynamic rows generated by JS -->
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB: DAILY SALES & STOCK DEDUCTION REPORT -->
+  <section id="tab-sales" class="hidden space-y-6">
+    
+    <!-- HEADER WITH FILE LINKS & ACTIONS -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 mb-4">
+        <div>
+          <div class="flex flex-wrap items-center gap-2 mb-1">
+            <span class="badge-pill bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">LIVE STOCK DEDUCTION</span>
+            <span class="badge-pill bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">EXCEL DATABASE LINKED</span>
+          </div>
+          <h2 class="text-lg font-bold flex items-center gap-2">
+            <span class="text-emerald-600 dark:text-emerald-400">📊</span> รายงานยอดขายรายวันและตัดสต็อก (Daily Sales & Stock Deduction)
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
+            บันทึกยอดขายและคำนวณตัดสต็อกคงเหลือแบบเรียลไทม์ อ้างอิงฐานข้อมูลจาก Google Sheets รายการสินค้าหลัก
+          </p>
+        </div>
+
+        <!-- File Links -->
+        <div class="flex flex-wrap items-center gap-2">
+          <a href="https://docs.google.com/spreadsheets/d/1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="badge-pill py-1.5 px-3 bg-emerald-600 hover:bg-emerald-700 text-white font-semibold transition-colors flex items-center gap-1.5 shadow-sm" title="เปิด Google Sheets รายการสินค้าหลักต้นฉบับ">
+            <svg class="w-3.5 h-3.5 fill-current" viewBox="0 0 24 24"><path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V5h14v14zM7 7h10v2H7zm0 4h10v2H7zm0 4h7v2H7z"/></svg>
+            <span>📊 Google Sheets รายการสินค้า</span>
+          </a>
+        </div>
+      </div>
+
+      <!-- GOOGLE SHEETS LIVE EMBED VIEWER (COLLAPSIBLE) -->
+      <div id="embedded-sheet-container" class="mb-4 bg-white dark:bg-slate-900 border border-emerald-300 dark:border-emerald-800/60 rounded-xl overflow-hidden shadow-sm">
+        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/40 border-b border-emerald-200 dark:border-emerald-900/50 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span class="text-base">📗</span>
+            <span class="text-xs font-bold text-emerald-800 dark:text-emerald-300">หน้าต่างดู Google Sheets ต้นฉบับ (Interactive Live Viewer)</span>
+            <span class="text-[10px] text-emerald-600 dark:text-emerald-400 bg-emerald-100 dark:bg-emerald-900/60 px-2 py-0.5 rounded-full font-mono">1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE</span>
+          </div>
+          <div class="flex items-center gap-2">
+            <a href="https://docs.google.com/spreadsheets/d/1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE/edit?gid=0#gid=0" target="_blank" rel="noopener noreferrer" class="text-[11px] font-semibold text-emerald-700 dark:text-emerald-300 hover:underline flex items-center gap-1">
+              <span>↗️</span> เปิดชีตเต็มจอ
+            </a>
+            <button onclick="toggleEmbeddedSheet()" class="text-slate-400 hover:text-slate-600 text-xs px-2 py-0.5 rounded cursor-pointer" title="ซ่อนหน้าต่าง">
+              ✕ ซ่อน
+            </button>
+          </div>
+        </div>
+        <div class="p-1 bg-slate-100 dark:bg-slate-950">
+          <iframe 
+            src="https://docs.google.com/spreadsheets/d/1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE/edit?usp=sharing&widget=true&headers=false" 
+            class="w-full h-[360px] rounded-lg border border-slate-200 dark:border-slate-800 bg-white"
+            loading="lazy"
+            title="Google Sheets Viewer">
+          </iframe>
+        </div>
+      </div>
+
+      <!-- SALES KPI METRICS -->
+      <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl mb-4">
+        <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg">
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 font-medium">📦 สต็อกตั้งต้นรวม</div>
+          <div class="text-lg font-bold text-slate-900 dark:text-slate-100 mt-0.5" id="stock-kpi-total">855 ชิ้น</div>
+          <div class="text-[10px] text-slate-400">คลัง TTT + เมกาโฮม</div>
+        </div>
+
+        <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg">
+          <div class="text-[11px] text-blue-600 dark:text-blue-400 font-medium">🛍️ ยอดขายรวม</div>
+          <div class="text-lg font-bold text-blue-600 dark:text-blue-400 mt-0.5" id="stock-kpi-sold">329 ชิ้น</div>
+          <div class="text-[10px] text-slate-400">ตัดสต็อกสะสม</div>
+        </div>
+
+        <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg">
+          <div class="text-[11px] text-emerald-600 dark:text-emerald-400 font-medium">✨ สต็อกคงเหลือสุทธิ</div>
+          <div class="text-lg font-bold text-emerald-600 dark:text-emerald-400 mt-0.5" id="stock-kpi-remain">526 ชิ้น</div>
+          <div class="text-[10px] text-slate-400">พร้อมขายหน้างาน</div>
+        </div>
+
+        <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg">
+          <div class="text-[11px] text-purple-600 dark:text-purple-400 font-medium">💰 ยอดขายรวม (บาท)</div>
+          <div class="text-lg font-bold text-purple-600 dark:text-purple-400 mt-0.5" id="stock-kpi-revenue">฿232,540</div>
+          <div class="text-[10px] text-purple-500 font-medium" id="stock-kpi-target-sub">เป้าหมาย ฿320,000 (73%)</div>
+        </div>
+
+        <div class="p-3 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-lg col-span-2 sm:col-span-1">
+          <div class="text-[11px] text-rose-600 dark:text-rose-400 font-medium">⚠️ สต็อกใกล้หมด (&lt;10)</div>
+          <div class="text-lg font-bold text-rose-600 dark:text-rose-400 mt-0.5" id="stock-kpi-alerts">2 รายการ</div>
+          <div class="text-[10px] text-rose-500">เปิดขอโอนด่วนจากเมกาโฮม</div>
+        </div>
+      </div>
+
+      <!-- SALES TARGET & COMMISSION LADDER CARD -->
+      <div class="bg-gradient-to-br from-slate-900 via-slate-850 to-slate-900 text-white rounded-2xl p-5 mb-4 shadow-md border border-slate-700">
+        <div class="flex flex-col lg:flex-row lg:items-center justify-between gap-4 border-b border-slate-700/80 pb-4 mb-4">
+          <div>
+            <div class="flex flex-wrap items-center gap-2 mb-1.5">
+              <span class="badge-pill bg-amber-400/20 text-amber-300 border border-amber-400/30">🎯 REVENUE TARGET ฿320,000</span>
+              <span class="badge-pill bg-emerald-400/20 text-emerald-300 border border-emerald-400/30">4-STEP COMMISSION SCHEME</span>
+              <span class="badge-pill bg-blue-400/20 text-blue-300 border border-blue-400/30">PC SUPERVISOR INCENTIVE</span>
+            </div>
+            <h3 class="text-lg font-bold flex items-center gap-2">
+              <span>🎯</span> เป้าหมายการขาย 320,000 บาท & แผนคอมมิชชั่น 4 ขั้น (Commission Ladder)
+            </h3>
+            <p class="text-xs text-slate-300 mt-0.5">
+              ติดตามยอดขายเทียบเป้า ฿320,000 และคำนวณค่าคอมมิชชั่น PC Supervisor แบบอัตโนมัติตามยอดขายตัดสต็อกจริง
+            </p>
+          </div>
+
+          <!-- Target & Current Payout Stats -->
+          <div class="flex flex-wrap items-center gap-3">
+            <div class="bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-2.5 text-center min-w-[140px]">
+              <div class="text-[11px] text-slate-400 font-medium">🎯 เป้าหมายยอดขาย (Target)</div>
+              <div class="text-xl font-black text-amber-400 mt-0.5">฿320,000</div>
+              <div class="text-[10px] text-slate-400">10 วัน (เฉลี่ย ฿32,000/วัน)</div>
+            </div>
+
+            <div class="bg-slate-800/90 border border-slate-700 rounded-xl px-4 py-2.5 text-center min-w-[160px]">
+              <div class="text-[11px] text-slate-400 font-medium">💰 ค่าคอมมิชชั่นสะสม (Earned)</div>
+              <div class="text-xl font-black text-emerald-400 mt-0.5" id="comm-earned-val">฿0</div>
+              <div class="text-[10px] text-emerald-300 font-semibold" id="comm-current-tier-tag">Step 1 (1%) • เหมาขั้น</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Progress Bar toward Target 320,000 THB -->
+        <div class="mb-5 bg-slate-800/70 p-3.5 rounded-xl border border-slate-700/80">
+          <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-1 text-xs mb-1.5">
+            <span class="font-medium text-slate-300">
+              ความคืบหน้าสู่เป้าหมาย ฿320,000: 
+              <b class="text-white text-sm" id="target-progress-pct">0%</b>
+              (<span id="target-actual-rev" class="font-mono text-amber-300 font-bold">฿0</span> / ฿320,000)
+            </span>
+            <span class="font-semibold text-amber-300 text-xs" id="target-remain-label">
+              ขาดอีก ฿320,000 เพื่อพิชิตเป้าหมาย
+            </span>
+          </div>
+          <div class="w-full h-3.5 bg-slate-750 rounded-full overflow-hidden p-0.5 border border-slate-700">
+            <div id="target-progress-bar" class="h-full rounded-full bg-gradient-to-r from-amber-500 via-blue-500 to-emerald-500 transition-all duration-500" style="width: 0%;"></div>
+          </div>
+        </div>
+
+        <!-- 4 Steps Interactive Commission Ladder Grid -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mb-4">
+          
+          <!-- STEP 1 -->
+          <div id="comm-step-card-1" class="p-3.5 rounded-xl border transition-all bg-slate-800/90 border-slate-700">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="badge-pill bg-slate-700 text-slate-200 text-[10px]">STEP 1</span>
+              <span class="text-base font-black text-blue-400">1%</span>
+            </div>
+            <div class="font-bold text-sm text-slate-100">฿0 - ฿99,999</div>
+            <p class="text-[11px] text-slate-400 mt-1">ยอดขายช่วงเริ่มต้นบูธ 1-3 วันแรก</p>
+            <div class="mt-2.5 pt-2 border-t border-slate-700/80 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">สถานะ:</span>
+              <span id="comm-step-status-1" class="font-bold text-slate-400">รอยอดขาย</span>
+            </div>
+          </div>
+
+          <!-- STEP 2 -->
+          <div id="comm-step-card-2" class="p-3.5 rounded-xl border transition-all bg-slate-800/90 border-slate-700">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="badge-pill bg-slate-700 text-slate-200 text-[10px]">STEP 2</span>
+              <span class="text-base font-black text-cyan-400">2%</span>
+            </div>
+            <div class="font-bold text-sm text-slate-100">฿100,000 - ฿199,999</div>
+            <p class="text-[11px] text-slate-400 mt-1">ยอดขายผ่านช่วงกลางสัปดาห์แรก</p>
+            <div class="mt-2.5 pt-2 border-t border-slate-700/80 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">สถานะ:</span>
+              <span id="comm-step-status-2" class="font-bold text-slate-400">รอยอดขาย</span>
+            </div>
+          </div>
+
+          <!-- STEP 3 -->
+          <div id="comm-step-card-3" class="p-3.5 rounded-xl border transition-all bg-slate-800/90 border-slate-700">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="badge-pill bg-slate-700 text-slate-200 text-[10px]">STEP 3</span>
+              <span class="text-base font-black text-amber-400">3%</span>
+            </div>
+            <div class="font-bold text-sm text-slate-100">฿200,000 - ฿299,999</div>
+            <p class="text-[11px] text-slate-400 mt-1">ยอดขายโค้งสุดท้ายสุดสัปดาห์สอง</p>
+            <div class="mt-2.5 pt-2 border-t border-slate-700/80 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">สถานะ:</span>
+              <span id="comm-step-status-3" class="font-bold text-slate-400">รอยอดขาย</span>
+            </div>
+          </div>
+
+          <!-- STEP 4 -->
+          <div id="comm-step-card-4" class="p-3.5 rounded-xl border transition-all bg-slate-800/90 border-slate-700">
+            <div class="flex items-center justify-between mb-1.5">
+              <span class="badge-pill bg-slate-700 text-slate-200 text-[10px]">STEP 4 (GOAL)</span>
+              <span class="text-base font-black text-emerald-400">4%</span>
+            </div>
+            <div class="font-bold text-sm text-emerald-300">฿300,000 ขึ้นไป</div>
+            <p class="text-[11px] text-slate-400 mt-1">แตะเป้าหมาย ฿320,000 รับเรตสูงสุด!</p>
+            <div class="mt-2.5 pt-2 border-t border-slate-700/80 flex items-center justify-between text-[11px]">
+              <span class="text-slate-400">สถานะ:</span>
+              <span id="comm-step-status-4" class="font-bold text-slate-400">เป้าหมายสูงสุด</span>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Formula Explanation & Payout Calculation Box -->
+        <div class="p-3.5 bg-slate-800/60 border border-slate-700/80 rounded-xl flex flex-col md:flex-row md:items-center justify-between gap-3 text-xs text-slate-300">
+          <div class="flex items-start gap-2">
+            <span class="text-base mt-0.5">ℹ️</span>
+            <div>
+              <span class="font-semibold text-white">สูตรการคิดค่าคอมมิชชั่น PC Supervisor (4 Steps):</span>
+              <span class="text-slate-400 ml-1">คำนวณตามขั้นบันไดความสำเร็จสะสมของยอดขายจริงหน้างาน HomePro Expo</span>
+              <div class="text-[11px] text-slate-300 mt-1 flex flex-wrap gap-x-4 gap-y-1">
+                <span>• <b>วิธีเหมาขั้น (Bracket Rate):</b> <span id="comm-calc-formula-flat" class="text-amber-300 font-mono font-bold">฿0 × 1% = ฿0</span></span>
+                <span>• <b>วิธีสะสมตามขั้น (Progressive Rate):</b> <span id="comm-calc-formula-prog" class="text-emerald-300 font-mono font-bold">฿0</span></span>
+              </div>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            <span class="text-[11px] text-slate-400">โครงสร้างผลตอบแทน:</span>
+            <span class="badge-pill bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 font-bold">Standard Expo Incentive</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- FILTER & ACTIONS BAR -->
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-3 mb-3">
+        <div class="flex flex-wrap items-center gap-2">
+          <input type="text" id="stock-search" oninput="filterStockTable()" placeholder="ค้นหารายการ, SKU, สเปก..." class="px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none focus:border-blue-500 w-52">
+          
+          <select id="stock-brand-filter" onchange="filterStockTable()" class="px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none">
+            <option value="ALL">ทุกกลุ่มสินค้า (All Brands)</option>
+            <option value="TOYOX">สายยาง TOYOX ญี่ปุ่น</option>
+            <option value="พญานาค">อุปกรณ์หัวฉีด/ข้อต่อ พญานาค</option>
+            <option value="เมกาโฮม">เฉพาะสต็อกโอนจากเมกาโฮม</option>
+          </select>
+
+          <select id="stock-day-filter" onchange="changeReportDay()" class="px-3 py-1.5 text-xs rounded-lg bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700 focus:outline-none font-semibold text-blue-600 dark:text-blue-400">
+            <option value="ALL">🗓️ ยอดขายสะสมทั้งงาน (Total 10 Days)</option>
+            <option value="D1">วันงาน Day 1 (ศุกร์)</option>
+            <option value="D2">วันงาน Day 2 (เสาร์ - วันหยุด)</option>
+            <option value="D3">วันงาน Day 3 (อาทิตย์ - วันหยุด)</option>
+            <option value="D4">วันงาน Day 4 (จันทร์)</option>
+            <option value="D5">วันงาน Day 5 (อังคาร)</option>
+            <option value="D6">วันงาน Day 6 (พุธ)</option>
+            <option value="D7">วันงาน Day 7 (พฤหัสบดี)</option>
+            <option value="D8">วันงาน Day 8 (ศุกร์)</option>
+            <option value="D9">วันงาน Day 9 (เสาร์ - สัปดาห์สอง)</option>
+            <option value="D10">วันงาน Day 10 (อาทิตย์ - วันสุดท้าย)</option>
+          </select>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2">
+          <button onclick="toggleEmbeddedSheet()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-50 dark:bg-emerald-950/40 hover:bg-emerald-100 text-emerald-700 dark:text-emerald-300 border border-emerald-300 dark:border-emerald-800 transition-all flex items-center gap-1 cursor-pointer" title="เปิด/ปิดหน้าต่างดู Google Sheets">
+            <span>👁️</span> ดูชีตต้นฉบับ
+          </button>
+          <button onclick="openGoogleSheetImportModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-emerald-600 hover:bg-emerald-700 text-white transition-all shadow-sm flex items-center gap-1 cursor-pointer" title="นำเข้าข้อมูลจาก Google Sheets หรือวางตาราง">
+            <span>📋</span> นำเข้าจาก Sheets
+          </button>
+          <button onclick="addNewProductModal()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-blue-600 hover:bg-blue-700 text-white transition-all shadow-sm flex items-center gap-1 cursor-pointer">
+            <span>➕</span> เพิ่มรายการ
+          </button>
+          <button onclick="exportStockCSV()" class="px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-700 dark:text-slate-200 border border-slate-300 dark:border-slate-700 transition-all flex items-center gap-1 cursor-pointer">
+            <span>📥</span> Export CSV
+          </button>
+          <button onclick="resetStockDefaults()" class="px-3 py-1.5 rounded-lg text-xs text-slate-500 hover:text-slate-800 transition-all cursor-pointer">
+            รีเซ็ตค่า
+          </button>
+        </div>
+      </div>
+
+      <!-- INTERACTIVE STOCK DEDUCTION TABLE -->
+      <div class="overflow-x-auto border border-slate-200 dark:border-slate-800 rounded-xl">
+        <table class="w-full text-left text-xs border-collapse">
+          <thead class="bg-slate-50 dark:bg-slate-800/80 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+            <tr>
+              <th class="p-3 font-semibold w-24">รหัส SKU</th>
+              <th class="p-3 font-semibold w-20">แบรนด์</th>
+              <th class="p-3 font-semibold">DESCRIPTION (รายละเอียดสินค้า)</th>
+              <th class="p-3 font-semibold w-24 text-right">ราคาขาย (฿)</th>
+              <th class="p-3 font-semibold w-24 text-center bg-blue-50/50 dark:bg-blue-950/20 text-blue-700 dark:text-blue-300">จำนวนStock</th>
+              <th class="p-3 font-semibold w-24 text-center bg-amber-50/50 dark:bg-amber-950/20 text-amber-700 dark:text-amber-300">ยอดขาย</th>
+              <th class="p-3 font-semibold w-24 text-center bg-emerald-50/50 dark:bg-emerald-950/20 text-emerald-700 dark:text-emerald-300">คงเหลือ</th>
+              <th class="p-3 font-semibold w-24 text-right">ยอดรวม (฿)</th>
+              <th class="p-3 font-semibold w-28">แหล่งสต็อก</th>
+              <th class="p-3 font-semibold w-24 text-center">สถานะสต็อก</th>
+            </tr>
+          </thead>
+          <tbody id="stock-table-body" class="divide-y divide-slate-200 dark:divide-slate-800 font-normal">
+            <!-- Dynamic rows generated by JS -->
+          </tbody>
+        </table>
+      </div>
+
+      <div class="p-3 bg-blue-50/70 dark:bg-blue-950/30 border border-blue-200 dark:border-blue-900/60 rounded-xl mt-4 flex flex-col md:flex-row md:items-center justify-between text-xs text-slate-600 dark:text-slate-300 gap-2">
+        <div class="flex items-center gap-2">
+          <span>💡</span>
+          <span><b>คำแนะนำสำหรับ PC Supervisor:</b> กรอกจำนวนยอดขายในช่องสีเหลือง ระบบจะคำนวณตัดสต็อกคงเหลือ (Stock - ยอดขาย) และคำนวณยอดเงินขายรวมให้อัตโนมัติ</span>
+        </div>
+        <div class="text-[11px] text-slate-400">
+          * ข้อมูลสต็อกเชื่อมโยงกับแผนโอนสินค้าจากสาขาเมกาโฮม รังสิต / บางใหญ่
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- TAB: MEGA HOME SOP & TRANSFER PROTOCOL -->
+  <section id="tab-megahome" class="hidden space-y-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold flex items-center gap-2">
+            <span class="text-orange-600 dark:text-orange-400">📦</span> ขั้นตอนมาตรฐานการโอนสินค้าจากสาขาเมกาโฮม (Mega Home Stock Transfer Protocol)
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">แนวทางบริหารสต็อกระหว่างเมกาโฮมและงาน HomePro Expo เพื่อแก้ปัญหางบจำกัดและลดการผลิตสต็อกซ้ำซ้อน</p>
+        </div>
+        <span class="badge-pill bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20">Standard Operating Procedure</span>
+      </div>
+
+      <!-- Flow Steps -->
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
+        
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-orange-600 dark:text-orange-400 mb-1">STEP 1 (D-36)</div>
+            <h3 class="font-bold text-sm mb-2">สำรวจสต็อกสาขา</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              ดึงรายงาน On-hand Inventory ของสายยาง TOYOX และอุปกรณ์พญานาคจากระบบเมกาโฮมสาขารอบปริมณฑล (รังสิต, มีนบุรี, บางนา, บางใหญ่) เพื่อดูยอดคงเหลือจริง
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+            Output: Stock Pull Matrix
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-orange-600 dark:text-orange-400 mb-1">STEP 2 (D-24)</div>
+            <h3 class="font-bold text-sm mb-2">เปิดเอกสาร STO อนุมัติ</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              ประสาน Merchandiser (Buyer) เมกาโฮมและ HomePro ออกเอกสารใบคำขอโอนสินค้าข้ามสาขา (Inter-Branch Transfer Order) ผูกกับรหัสอีเวนต์ Expo บูธ 3833
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+            Output: STO Document Approved
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-orange-600 dark:text-orange-400 mb-1">STEP 3 (D-4 ถึง D-1)</div>
+            <h3 class="font-bold text-sm mb-2">ขนถ่าย & ตรวจรับ (GR)</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              รถขนส่งเข้ารับสินค้าที่ล็อกไว้หน้าสาขาเมกาโฮมต้นทาง วิ่งสมทบเข้า IMPACT และทำใบตรวจรับสินค้า (Goods Receipt) สแกนบาร์โค้ดขึ้นระบบบูธ 100%
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+            Output: Physical GR & Barcode Verified
+          </div>
+        </div>
+
+        <div class="p-4 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950 flex flex-col justify-between">
+          <div>
+            <div class="text-xs font-bold text-orange-600 dark:text-orange-400 mb-1">STEP 4 (D+11)</div>
+            <h3 class="font-bold text-sm mb-2">โอนคืน & กระทบยอด</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400 leading-relaxed">
+              นับสินค้าคงเหลือหลังปิดบูธ ทำเรื่องโอนกลับ (Return STO) คืนสาขาเมกาโฮมเดิม และตัดยอดขายส่งเสริมการขายระหว่างสาขาอย่างถูกต้องตามระบบบัญชี
+            </p>
+          </div>
+          <div class="mt-3 pt-2 border-t border-slate-200 dark:border-slate-800 text-[11px] font-semibold text-slate-700 dark:text-slate-300">
+            Output: Return STO & Reconciled Bill
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Emergency Fast-Track Route Info -->
+      <div class="p-4 rounded-xl border border-orange-200 dark:border-orange-900/60 bg-orange-50 dark:bg-orange-950/30">
+        <h4 class="font-bold text-sm text-orange-700 dark:text-orange-400 mb-2 flex items-center gap-2">
+          ⚡ แผนสำรองเร่งด่วนระหว่างงาน (In-Fair Emergency Pull Route)
+        </h4>
+        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+          หากเกิดกรณีสินค้ากลุ่มขายดี เช่น สายยาง TOYOX 15 เมตร หรือหัวฉีดทองเหลืองพญานาค หมดสต็อกหน้างานช่วงวันหยุดเสาร์-อาทิตย์ ทีมงานสามารถเปิดคำสั่ง <b>Emergency Pull</b> ไปยังสาขา <b>เมกาโฮม รังสิต หรือ บางใหญ่</b> (รัศมีไม่เกิน 25 กม. จาก IMPACT เมืองทองธานี) โดยประสานผู้จัดการสาขาเพื่อเบิกจ่ายสินค้าใส่รถกระบะเคลื่อนที่เร็วเข้าสู่หน้างานได้ภายใน <b>2.5 - 3 ชั่วโมง</b> ก่อนรอบเปิดขายช่วงบ่าย 14:00 น.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 2: 2D PLANOGRAM & MERCHANDISING -->
+  <section id="tab-planogram" class="hidden space-y-6">
+    
+    <!-- CARD A: MASTER FLOOR PLAN LOCATION -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold flex items-center gap-2">
+            <span class="text-blue-600 dark:text-blue-400">🗺️</span> ผังทำเลทองในงาน HomePro Expo (IMPACT Hall Master Floor Plan)
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">การวิเคราะห์พิกัดที่ตั้งบูธในโซน Gardening & Outdoor Living (GD) ณ อิมแพ็ค เมืองทองธานี</p>
+        </div>
+        <span class="badge-pill bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">Prime Traffic Location</span>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        <!-- Floor plan Image -->
+        <div class="lg:col-span-7 bg-slate-100 dark:bg-slate-950 p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
+          <img src="ผังบูธ.jpeg" 
+               onerror="this.onerror=null; this.src='file:///C:/Users/Preeda.su/.gemini/antigravity/brain/959b92a2-1f24-41ae-8bcb-ea6055a46401/.user_uploaded/media_1789993209343.jpg';"
+               alt="HomePro Expo Master Floor Plan" 
+               class="w-full h-auto rounded-lg object-contain max-h-[480px] mx-auto shadow-sm">
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-medium">
+            📍 ผังรวมพื้นที่: บูธ TOYOX อยู่ในบล็อก GD 8x8.5 ม. (ติดเจียไต๋ / ศรแดง และหน้าศูนย์อาหาร Food Court)
+          </div>
+        </div>
+
+        <!-- Location Strategic Analysis -->
+        <div class="lg:col-span-5 space-y-3">
+          <div class="p-3.5 rounded-xl border border-blue-200 dark:border-blue-900/50 bg-blue-50/60 dark:bg-blue-950/20">
+            <h4 class="font-bold text-xs text-blue-700 dark:text-blue-400 uppercase tracking-wider mb-1">🎯 1. พันธมิตรดึงดูดลูกค้า (Anchor Neighbor)</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              บูธอยู่ติดกับ <b>เจียไต๋ / ศรแดง (20.50 × 8.50 ม. / 170 ตร.ม.)</b> ยักษ์ใหญ่อันดับ 1 ด้านเมล็ดพันธุ์และอุปกรณ์สวน ลูกค้าที่มาซื้อดิน ปุ๋ย เมล็ดพันธุ์ จะเดินทะลุผ่านบูธสายยาง TOYOX และหัวฉีดพญานาคทันที
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-purple-200 dark:border-purple-900/50 bg-purple-50/60 dark:bg-purple-950/20">
+            <h4 class="font-bold text-xs text-purple-700 dark:text-purple-400 uppercase tracking-wider mb-1">💳 2. ดักทางแคชเชียร์ & Counter Service</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              ตำแหน่งบูธตั้งอยู่ตรงข้าม <b>CASHIER 35-17</b> และ <b>Counter Service (75 ตร.ม.)</b> ทางทิศเหนือ และใกล้ <b>CASHIER 28, 29</b> ทางทิศใต้ สร้างโอกาสในการปิดการขายแบบ Impulse Buy สูงมาก
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-amber-200 dark:border-amber-900/50 bg-amber-50/60 dark:bg-amber-950/20">
+            <h4 class="font-bold text-xs text-amber-700 dark:text-amber-400 uppercase tracking-wider mb-1">🍽️ 3. ประจันหน้า FOOD Zone (324 ตร.ม.)</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              หันหน้าออกสู่ทางเดินกว้าง 3.50 ม. ประจันหน้าโซนอาหารและ Starbucks ซึ่งเป็นจุดศูนย์รวมคนเดินพักผ่อนตลอดวัน ทำให้บูธได้รับทราฟฟิกสายตา (Impression) สูงสุด
+            </p>
+          </div>
+
+          <div class="p-3.5 rounded-xl border border-emerald-200 dark:border-emerald-900/50 bg-emerald-50/60 dark:bg-emerald-950/20">
+            <h4 class="font-bold text-xs text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mb-1">📦 4. ใกล้คลัง Stock ใหญ่ด้านหลัง</h4>
+            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
+              อยู่ติดกับพื้นที่ Stock ขนาดใหญ่ (153 ตร.ม. และ 480 ตร.ม.) ช่วยให้ PC Supervisor และทีมงานสามารถเบิกเติมสินค้าเข้าบูธได้อย่างรวดเร็ว
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD B: PALLET BLUEPRINT & AISLE SPECS -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold flex items-center gap-2">
+            <span class="text-indigo-600 dark:text-indigo-400">📐</span> แบบแปลนจริงพื้นที่พาเลท (Pallet Blueprint & Dimensions)
+          </h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">ขนาด 2.0 × 3.6 เมตร (7.2 ตร.ม.) จัดวางแบบ 6 Pallets (Grid 2×3) พร้อมระยะทางเดินรอบบูธ</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="badge-pill bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">หน้ากว้าง 3.60 ม.</span>
+          <span class="badge-pill bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">ความลึก 2.00 ม.</span>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
+        <!-- Pallet Cad/Drawing Image -->
+        <div class="lg:col-span-7 bg-slate-100 dark:bg-slate-950 p-2 rounded-xl border border-slate-200 dark:border-slate-800 text-center">
+          <img src="TOYOX 7.2SQM.jpg" 
+               onerror="this.onerror=null; this.src='file:///C:/Users/Preeda.su/.gemini/antigravity/brain/959b92a2-1f24-41ae-8bcb-ea6055a46401/.user_uploaded/media_1789993139598.jpg';"
+               alt="TOYOX 7.2 SQM Pallet Grid Layout" 
+               class="w-full h-auto rounded-lg object-contain max-h-[420px] mx-auto shadow-sm">
+          <div class="text-[11px] text-slate-500 dark:text-slate-400 mt-2 font-medium">
+            📐 แบบแปลนระยะ: พาเลทขนาด 100 × 120 ซม. จำนวน 6 ตัว | ทางเดินหน้า 1.50 ม. | ทางเดินข้าง 1.30 ม.
+          </div>
+        </div>
+
+        <!-- Pallet Specs Breakdown -->
+        <div class="lg:col-span-5 space-y-3">
+          <div class="p-3.5 rounded-xl border border-slate-200 dark:border-slate-800 bg-slate-50 dark:bg-slate-950">
+            <h4 class="font-bold text-xs text-slate-700 dark:text-slate-300 mb-2">📊 ข้อมูลสเปกพื้นที่ทางสถาปัตยกรรม</h4>
+            <ul class="text-xs text-slate-600 dark:text-slate-400 space-y-2">
+              <li class="flex items-start gap-2">
+                <span class="text-blue-500 font-bold">•</span>
+                <span><b>ขนาดพาเลทมาตรฐาน:</b> 100 × 120 ซม. (1.0 × 1.2 ม.) จำนวน 6 ตัว จัดวางเรียง 2 แถว × 3 คอลัมน์</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-emerald-500 font-bold">•</span>
+                <span><b>พื้นที่รวมสุทธิ:</b> 2.00 ม. (ลึก) × 3.60 ม. (หน้ากว้าง) = <b>7.20 ตารางเมตร</b></span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-purple-500 font-bold">•</span>
+                <span><b>ทางเดินหลักด้านหน้า (Main Aisle):</b> กว้าง <b>1.50 เมตร</b> เป็นทางสัญจรหลักรับสายตาลูกค้า</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-amber-500 font-bold">•</span>
+                <span><b>ทางเดินเชื่อมด้านข้าง (Cross Aisle):</b> กว้าง <b>1.30 เมตร</b> สำหรับเดินวนรอบบูธ</span>
+              </li>
+              <li class="flex items-start gap-2">
+                <span class="text-rose-500 font-bold">•</span>
+                <span><b>เพดานความสูงควบคุม:</b> ห้ามติดตั้งป้ายหรือดิสเพลย์สูงเกิน <b>1.80 เมตร</b> เพื่อรักษาทัศนวิสัย</span>
+              </li>
+            </ul>
+          </div>
+
+          <div class="p-3 bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-900 rounded-lg text-[11px] text-amber-700 dark:text-amber-300">
+            ⚠️ <b>ข้อกำหนดด้านความปลอดภัย:</b> พื้นที่พาเลทเป็นโครงสร้างลอยตัว ห้ามเจาะยึดพื้นฮอลล์ และต้องหุ้มขอบพาเลท (Pallet Skirting) ให้มิดชิดเพื่อป้องกันการสะดุด
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CARD C: INTERACTIVE 6 PALLETS MERCHANDISING -->
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold">ผังจำลองการจัดวางสินค้า (Interactive 2D Merchandising Planogram)</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">คลิกเลือกพาเลท 1-6 เพื่อดูรายละเอียดสินค้าและการปิดการขายของ PC Supervisor</p>
+        </div>
+        <div class="flex items-center gap-2">
+          <span class="badge-pill bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Aisle กว้าง 1.50 ม.</span>
+          <span class="badge-pill bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">คุมความสูง ≤ 1.80 ม.</span>
+        </div>
+      </div>
+
+      <!-- Top Aisle Indicator -->
+      <div class="bg-blue-50 dark:bg-blue-950/40 border border-dashed border-blue-500/40 rounded-lg py-2 text-center text-xs font-semibold text-blue-600 dark:text-blue-400 tracking-wider mb-3">
+        ▲ ทางเดินหลัก (MAIN AISLE) - ความกว้าง 1.50 เมตร (คนเดินหนาแน่นที่สุด) ▲
+      </div>
+
+      <!-- 6 Pallets Grid Visualizer -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-3 p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl">
+        
+        <!-- PALLET 1 -->
+        <div onclick="selectPallet(1)" id="pallet-card-1" class="cursor-pointer border-2 border-blue-500 rounded-xl p-4 bg-white dark:bg-slate-900 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge-pill bg-blue-500 text-white">PALLET 1 (1.0 × 1.2 ม.)</span>
+            <span class="text-[10px] text-blue-500 font-bold">FRONT LEFT</span>
+          </div>
+          <h3 class="font-bold text-sm">TOYOX HERO SET</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">สายยางโรลสำเร็จรูปพร้อมหัวฉีด, สายยางรุ่นพรีเมียมตัดเมตร, ป้ายสเปกตากแดด 5 ปีไม่กรอบ</p>
+          <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between text-[11px]">
+            <span class="text-slate-500">บทบาท: <b>ดึงดูดสายตา</b></span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">High Visual</span>
+          </div>
+        </div>
+
+        <!-- PALLET 2 -->
+        <div onclick="selectPallet(2)" id="pallet-card-2" class="cursor-pointer border-2 border-emerald-500 rounded-xl p-4 bg-white dark:bg-slate-900 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge-pill bg-emerald-500 text-white">PALLET 2 (1.0 × 1.2 ม.)</span>
+            <span class="text-[10px] text-emerald-500 font-bold">FRONT CENTER</span>
+          </div>
+          <h3 class="font-bold text-sm">TOUCH & TRY DEMO</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">แท่นสาธิตสัมผัสความนิ่ม/คืนตัว, ชิ้นส่วนผ่าตัดขวางโครงสร้างชั้นด้ายถัก และแท่นลองบิดสาย</p>
+          <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between text-[11px]">
+            <span class="text-slate-500">บทบาท: <b>สร้างความมั่นใจ</b></span>
+            <span class="text-blue-600 dark:text-blue-400 font-semibold">Key Closing</span>
+          </div>
+        </div>
+
+        <!-- PALLET 3 -->
+        <div onclick="selectPallet(3)" id="pallet-card-3" class="cursor-pointer border-2 border-amber-500 rounded-xl p-4 bg-white dark:bg-slate-900 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge-pill bg-amber-500 text-white">PALLET 3 (1.0 × 1.2 ม.)</span>
+            <span class="text-[10px] text-amber-500 font-bold">FRONT RIGHT</span>
+          </div>
+          <h3 class="font-bold text-sm">พญานาค BRASS & ACC</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">แผง Pegboard แขวนหัวฉีดทองเหลืองแท้, ข้อต่อสวมเร็วก็อกน้ำ, แคลมป์รัดท่อสแตนเลส</p>
+          <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between text-[11px]">
+            <span class="text-slate-500">บทบาท: <b>ขายพ่วง</b></span>
+            <span class="text-amber-600 dark:text-amber-400 font-semibold">High Margin</span>
+          </div>
+        </div>
+
+        <!-- PALLET 4 -->
+        <div onclick="selectPallet(4)" id="pallet-card-4" class="cursor-pointer border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-white dark:bg-slate-900 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge-pill bg-gray-500 text-white">PALLET 4 (1.0 × 1.2 ม.)</span>
+            <span class="text-[10px] text-slate-400 font-bold">BACK LEFT</span>
+          </div>
+          <h3 class="font-bold text-sm">TOYOX BULK & PROMO</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">สต็อกสายยางม้วนใหญ่ 50ม.-100ม. สำหรับช่าง/สวนใหญ่ และกองสินค้าจัดรายการลดล้างสต็อก</p>
+          <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between text-[11px]">
+            <span class="text-slate-500">บทบาท: <b>ดันยอดตั๋วใหญ่</b></span>
+            <span class="text-purple-600 dark:text-purple-400 font-semibold">Volume Driver</span>
+          </div>
+        </div>
+
+        <!-- PALLET 5 -->
+        <div onclick="selectPallet(5)" id="pallet-card-5" class="cursor-pointer border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-white dark:bg-slate-900 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge-pill bg-gray-500 text-white">PALLET 5 (1.0 × 1.2 ม.)</span>
+            <span class="text-[10px] text-slate-400 font-bold">BACK CENTER</span>
+          </div>
+          <h3 class="font-bold text-sm">FAST-MOVING INVENTORY</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">สต็อกพร้อมหยิบสำหรับรุ่นยอดนิยม 10ม./15ม./20ม. (มีสต็อกที่ตัดโอนจากเมกาโฮมมาเสริม) ให้ลูกค้าหยิบไปจ่ายเงินได้ทันที</p>
+          <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between text-[11px]">
+            <span class="text-slate-500">บทบาท: <b>หยิบสะดวก</b></span>
+            <span class="text-emerald-600 dark:text-emerald-400 font-semibold">Quick Turn</span>
+          </div>
+        </div>
+
+        <!-- PALLET 6 -->
+        <div onclick="selectPallet(6)" id="pallet-card-6" class="cursor-pointer border border-slate-200 dark:border-slate-800 rounded-xl p-4 bg-white dark:bg-slate-900 hover:shadow-md transition-all">
+          <div class="flex justify-between items-start mb-2">
+            <span class="badge-pill bg-purple-600 text-white">PALLET 6 (1.0 × 1.2 ม.)</span>
+            <span class="text-[10px] text-purple-400 font-bold">BACK RIGHT</span>
+          </div>
+          <h3 class="font-bold text-sm">CHECKOUT & PC SUPERVISOR</h3>
+          <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">จุดประจำการ PC Supervisor ให้คำปรึกษา แนะนำสเปก เขียนบิลเบิก แจกโบรชัวร์ และสแกน QR รับประกันสินค้า</p>
+          <div class="mt-3 pt-2 border-t border-slate-100 dark:border-slate-800 flex justify-between text-[11px]">
+            <span class="text-slate-500">บทบาท: <b>ศูนย์บริการ PC Supervisor & ปิดบิล</b></span>
+            <span class="text-blue-600 dark:text-blue-400 font-semibold">Staff Station</span>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Bottom Aisle Indicator -->
+      <div class="bg-slate-100 dark:bg-slate-800 border border-dashed border-slate-300 dark:border-slate-700 rounded-lg py-1.5 text-center text-xs text-slate-500 dark:text-slate-400 tracking-wider mt-3">
+        ▼ ทางเดินย่อย (CROSS AISLE) - ความกว้าง 1.30 เมตร ▼
+      </div>
+
+      <!-- Pallet Detail View Box -->
+      <div id="pallet-detail-box" class="p-4 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl mt-4">
+        <h4 class="font-bold text-sm text-blue-600 dark:text-blue-400 mb-1" id="detail-pallet-title">👉 กรุณาคลิกเลือกพาเลทด้านบนเพื่อดูสเปกการจัดวาง</h4>
+        <p class="text-xs text-slate-600 dark:text-slate-300" id="detail-pallet-desc">
+          ระบบแสดงสเปกการตกแต่ง, ความสูงที่อนุญาต, รายการสินค้าที่เน้น และกลยุทธ์การขายประจำแต่ละพาเลท
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 3: INTERNATIONAL COST STRUCTURE (UFI/IFES) -->
+  <section id="tab-budget" class="hidden space-y-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold">โครงสร้างงบประมาณตามหลักสากล (Exhibition Cost Ratio Standard)</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">มาตรฐานการจัดสรรงบประมาณสำหรับงานแสดงสินค้า B2C Fair เพื่อคุมค่าใช้จ่ายและป้องกันงบบานปลาย</p>
+        </div>
+        <span class="badge-pill bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">IFES / UFI Cost Framework</span>
+      </div>
+
+      <!-- Cost Table & Ratio Breakdown -->
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        
+        <div class="lg:col-span-2 overflow-x-auto">
+          <table class="w-full text-left text-xs border border-slate-200 dark:border-slate-800 rounded-xl overflow-hidden">
+            <thead class="bg-slate-50 dark:bg-slate-800 text-slate-500 dark:text-slate-400 border-b border-slate-200 dark:border-slate-800">
+              <tr>
+                <th class="p-3 font-semibold">หมวดหมู่ค่าใช้จ่าย (Cost Center)</th>
+                <th class="p-3 font-semibold text-center w-24">สัดส่วนสากล</th>
+                <th class="p-3 font-semibold">รายการค่าใช้จ่ายหลัก (Cost Drivers)</th>
+                <th class="p-3 font-semibold">แนวทางประหยัดงบ (Cost Optimization)</th>
+              </tr>
+            </thead>
+            <tbody class="divide-y divide-slate-200 dark:divide-slate-800 font-normal">
+              <tr>
+                <td class="p-3 font-bold">1. Space Rental & Utilities</td>
+                <td class="p-3 text-center font-bold text-blue-600 dark:text-blue-400">30% - 35%</td>
+                <td class="p-3 text-slate-600 dark:text-slate-300">ค่าเช่า 6 Pallets (ตามสัญญาหักบัญชี), ค่าไฟแสงสว่าง, ค่าขอใช้น้ำ/ปลั๊กไฟ</td>
+                <td class="p-3 text-emerald-600 dark:text-emerald-400">ใช้สปอตไลต์ LED ประหยัดไฟ ไม่ขอท่อน้ำเปียก (ใช้ Dry Demo แทน)</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">2. Booth Display & POP</td>
+                <td class="p-3 text-center font-bold text-purple-600 dark:text-purple-400">20% - 25%</td>
+                <td class="p-3 text-slate-600 dark:text-slate-300">ผ้า/ไวนิลคลุมพาเลท (Pallet Skirt), ป้าย Header แบรนด์, แผง Pegboard แขวนของ</td>
+                <td class="p-3 text-emerald-600 dark:text-emerald-400">งดงานไม้สั่งทำพิเศษ ใช้โครงแร็คเหล็ก Knockdown ที่นำกลับมาใช้ซ้ำได้</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">3. Staffing & Operation</td>
+                <td class="p-3 text-center font-bold text-amber-600 dark:text-amber-400">15% - 20%</td>
+                <td class="p-3 text-slate-600 dark:text-slate-300">ค่าจ้าง/ค่าตอบแทน PC Supervisor ประจำบูธ 10 วัน, เบี้ยเลี้ยงเดินทาง, ค่าอาหาร, คอมมิชชั่นปิดการขาย</td>
+                <td class="p-3 text-emerald-600 dark:text-emerald-400">แต่งตั้ง PC Supervisor นำทีมขาย + เน้น Incentive ยอดขาย เพื่อกระตุ้นยอดโดยคุมฐานเงินเดือน</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">4. Logistics & Handling</td>
+                <td class="p-3 text-center font-bold text-cyan-600 dark:text-cyan-400">10% - 15%</td>
+                <td class="p-3 text-slate-600 dark:text-slate-300">ค่ารถบรรทุก 6 ล้อ Move-in / Move-out, ค่าจ้างแรงงานยกของ, รถรับสต็อกจากเมกาโฮม</td>
+                <td class="p-3 text-emerald-600 dark:text-emerald-400">วางแผน Route รถเข้ารับสต็อกจากเมกาโฮมในเที่ยวเดียวกับขบวนหลัก</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">5. Marketing, POSM & Gifts</td>
+                <td class="p-3 text-center font-bold text-pink-600 dark:text-pink-400">8% - 10%</td>
+                <td class="p-3 text-slate-600 dark:text-slate-300">โบรชัวร์ข้อมูลสเปก, ป้ายราคาโปรโมชั่น, สติกเกอร์ของแถม, สื่อโซเชียลยิงแอดพิกัดงาน</td>
+                <td class="p-3 text-emerald-600 dark:text-emerald-400">พิมพ์โบรชัวร์ขนาดกะทัดรัด และใช้ QR Code สำหรับดาวน์โหลดแคตตาล็อกเต็ม</td>
+              </tr>
+              <tr>
+                <td class="p-3 font-bold">6. Contingency Reserve</td>
+                <td class="p-3 text-center font-bold text-slate-500">5%</td>
+                <td class="p-3 text-slate-600 dark:text-slate-300">งบสำรองกรณีฉุกเฉิน (ปลั๊กไฟเสริม, อุปกรณ์ซ่อมแซมหน้างาน, ป้ายชำรุด)</td>
+                <td class="p-3 text-emerald-600 dark:text-emerald-400">เตรียม Toolbox และอะไหล่สำรองล่วงหน้าจากโรงงาน ไม่ซื้อของหน้างาน</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Cost Allocation Pie/Bar Representation -->
+        <div class="bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex flex-col justify-between">
+          <div>
+            <h3 class="font-bold text-sm mb-3">สรุปแผนภูมิการกระจายงบ (Budget Ratio)</h3>
+            <div class="space-y-2.5 text-xs">
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>1. ค่าเช่าพื้นที่ & สาธารณูปโภค</span>
+                  <span class="font-bold text-blue-600 dark:text-blue-400">32%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-blue-500 h-full" style="width: 32%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>2. โครงสร้างตกแต่ง & ดิสเพลย์</span>
+                  <span class="font-bold text-purple-600 dark:text-purple-400">23%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-purple-500 h-full" style="width: 23%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>3. ทีมงาน PC & ปฏิบัติการ</span>
+                  <span class="font-bold text-amber-600 dark:text-amber-400">18%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-amber-500 h-full" style="width: 18%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>4. โลจิสติกส์ & สต็อกหมุนเวียน</span>
+                  <span class="font-bold text-cyan-600 dark:text-cyan-400">12%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-cyan-500 h-full" style="width: 12%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>5. สื่อการตลาด & ของสมนาคุณ</span>
+                  <span class="font-bold text-pink-600 dark:text-pink-400">10%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-pink-500 h-full" style="width: 10%"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex justify-between mb-1">
+                  <span>6. งบสำรองฉุกเฉิน (Contingency)</span>
+                  <span class="font-bold text-slate-500">5%</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-800 h-2 rounded-full overflow-hidden">
+                  <div class="bg-slate-400 h-full" style="width: 5%"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-3 bg-blue-50 dark:bg-blue-950/40 border border-blue-200 dark:border-blue-900 rounded-lg mt-4 text-[11px] text-blue-700 dark:text-blue-300">
+            💡 <b>คำแนะนำ Project Director:</b> การดึงสต็อกจากเมกาโฮมช่วยลดความเสี่ยงเงินจมจากการผลิตสต็อกใหม่ และยังช่วยระบายสต็อกสินค้าในเครือ HomePro Group
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TAB 4: AUDIT & RISK CONTROL -->
+  <section id="tab-audit" class="hidden space-y-4">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl p-5 shadow-sm">
+      <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-4">
+        <div>
+          <h2 class="text-lg font-bold">5 กฎเหล็กควบคุมความเสี่ยง (Project Director's Quality & Risk Gate)</h2>
+          <p class="text-xs text-slate-500 dark:text-slate-400">จุดเสี่ยงวิกฤตที่มักทำให้บูธเกิดปัญหา และแนวทางตรวจสอบป้องกันล่วงหน้า</p>
+        </div>
+        <span class="badge-pill bg-rose-500/10 text-rose-600 dark:text-rose-400 border border-rose-500/20">Strict Compliance Checklist</span>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+        
+        <!-- Risk 1 -->
+        <div class="p-4 rounded-xl border border-red-200 dark:border-red-900/60 bg-red-50 dark:bg-red-950/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-red-500 text-white flex items-center justify-center font-bold text-xs">1</span>
+            <h3 class="font-bold text-sm text-red-700 dark:text-red-400">HomePro Central POS & Barcode Discrepancy</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">
+            <b>ความเสี่ยง:</b> สินค้าสแกนบาร์โค้ดไม่ติดที่แคชเชียร์กลาง หรือราคาโปรโมชั่นไม่ตรงในระบบ HomePro ทำให้ลูกค้าทิ้งของและเดินหนี
+          </p>
+          <div class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+            ✓ <b>วิธีป้องกัน:</b> ทำ Barcode Pre-check กับเครื่องอ่านจริงก่อนงาน D-10 และเตรียมแผ่นคีย์ลัดรหัสบาร์โค้ดสำรอง (Barcode Sheet) ให้ PC Supervisor พกติดตัว
+          </div>
+        </div>
+
+        <!-- Risk 2 -->
+        <div class="p-4 rounded-xl border border-amber-200 dark:border-amber-900/60 bg-amber-50 dark:bg-amber-950/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-amber-500 text-white flex items-center justify-center font-bold text-xs">2</span>
+            <h3 class="font-bold text-sm text-amber-700 dark:text-amber-400">การควบคุมความสูงโครงสร้างไม่เกิน 1.80 เมตร</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">
+            <b>ความเสี่ยง:</b> พื้นที่พาเลทกลางฮอลล์มีกฎห้ามบดบังทัศนวิสัย หากทำป้ายหรือเสาสูงเกินกำหนด เจ้าหน้าที่ IMPACT จะสั่งรื้อถอนทันที
+          </p>
+          <div class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+            ✓ <b>วิธีป้องกัน:</b> กำหนดสเปกป้าย Header สูงระดับ 1.70 - 1.75 ม. จากพื้น และเน้นป้ายรอบขอบพาเลท (Pallet Skirt) ในระดับสายตาลูกค้า
+          </div>
+        </div>
+
+        <!-- Risk 3 -->
+        <div class="p-4 rounded-xl border border-blue-200 dark:border-blue-900/60 bg-blue-50 dark:bg-blue-950/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-blue-500 text-white flex items-center justify-center font-bold text-xs">3</span>
+            <h3 class="font-bold text-sm text-blue-700 dark:text-blue-400">การเติมสต็อกสินค้าหน้างาน (Buffer Stock Depletion)</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">
+            <b>ความเสี่ยง:</b> บูธขนาด 7.2 ตร.ม. วางสต็อกได้จำกัด หากสินค้าขายดีหมดช่วงบ่ายวันหยุดเสาร์-อาทิตย์ จะเสียโอกาสสร้างยอดขายมหาศาล
+          </p>
+          <div class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+            ✓ <b>วิธีป้องกัน:</b> ผูกแผนดึงสต็อกเร่งด่วนกับสาขาเมกาโฮมใกล้เคียง (รังสิต/บางใหญ่) และรถกระบะเคลื่อนที่เร็วส่งของภายใน 3 ชม.
+          </div>
+        </div>
+
+        <!-- Risk 4 -->
+        <div class="p-4 rounded-xl border border-purple-200 dark:border-purple-900/60 bg-purple-50 dark:bg-purple-950/30">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-purple-600 text-white flex items-center justify-center font-bold text-xs">4</span>
+            <h3 class="font-bold text-sm text-purple-700 dark:text-purple-400">ข้อจำกัดระบบน้ำสาธิต (Dry Demo vs Wet Demo)</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">
+            <b>ความเสี่ยง:</b> การต่อท่อน้ำดี-น้ำทิ้งจริงในฮอลล์ 8-9 มีค่าใช้จ่ายสาธารณูปโภคสูงมาก และเสี่ยงน้ำรั่วซึมเปียกพื้นพาเลทผิดกฎฮอลล์
+          </p>
+          <div class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+            ✓ <b>วิธีป้องกัน:</b> ทำแท่นสาธิตแบบ "Dry Demo" (ผ่าโครงสร้างสายยางโชว์ชั้นด้ายถัก + หัวฉีดทองเหลืองกดคลิกจำลอง) ปิดการขายได้เร็วและปลอดภัย 100%
+          </div>
+        </div>
+
+        <!-- Risk 5 -->
+        <div class="p-4 rounded-xl border border-emerald-200 dark:border-emerald-900/60 bg-emerald-50 dark:bg-emerald-950/30 md:col-span-2">
+          <div class="flex items-center gap-2 mb-2">
+            <span class="w-6 h-6 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold text-xs">5</span>
+            <h3 class="font-bold text-sm text-emerald-700 dark:text-emerald-400">คิวรถเข้าพื้นที่ Marshalling IMPACT (Move-in / Move-out Traffic)</h3>
+          </div>
+          <p class="text-xs text-slate-600 dark:text-slate-300">
+            <b>ความเสี่ยง:</b> รถบรรทุกเข้าถ่ายของติดคิวสะสมภายนอกเมืองทองธานีหลายชั่วโมง หากไม่ลงทะเบียนคิวล่วงหน้า หรือคนขับไม่มีบัตรเข้างาน
+          </p>
+          <div class="mt-2 text-xs font-medium text-emerald-700 dark:text-emerald-400 flex items-center gap-1">
+            ✓ <b>วิธีป้องกัน:</b> ขอและปรินต์บัตร Vehicle Marshalling Pass ล่วงหน้า ระบุเวลารถเข้าช่วงเช้าตรู่ (06:00 - 08:00 น.) ของวัน Setup เพื่อเลี่ยงชั่วโมงวิกฤต
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- JAVASCRIPT LOGIC -->
+  <script>
+    const initialTasks = [
+      { id: 1, day: "D-45", cat: "Operation", task: "ยืนยันเอกสารจองพื้นที่ Pallet 6 ตัว (7.2 ตร.ม.) กับผู้จัด HomePro", deliverable: "สัญญาจองพื้นที่ / เอกสารหักบัญชี 50,000 บ.", pic: "Project Manager", status: "Done" },
+      { id: 2, day: "D-42", cat: "Marketing", task: "สรุปกลยุทธ์โปรโมชั่น: Bundle สายยาง TOYOX พ่วงหัวฉีดพญานาค", deliverable: "ตารางรายการสินค้าโปรโมชั่น & Price Matrix", pic: "Marketing Lead", status: "Done" },
+      { id: 3, day: "D-40", cat: "Logistics", task: "ทำ Sales Forecast และแบ่งสัดส่วนสต็อกหน้างาน vs สต็อกสำรองคลัง", deliverable: "Stock Allocation Plan (Fast vs Slow moving)", pic: "Inventory Lead", status: "In Progress" },
+      { id: 4, day: "D-38", cat: "Operation", task: "ออกแบบ 2D Planogram จัดวางสินค้าบน 6 พาเลท (Zoning 2x3)", deliverable: "Drawing แบบผังร้านและทิศทางการเดินของลูกค้า", pic: "Event Designer", status: "In Progress" },
+      { id: 5, day: "D-36", cat: "Mega Home", task: "สำรวจสต็อก On-hand สายยาง TOYOX และพญานาคในระบบสาขาเมกาโฮม (รังสิต, บางใหญ่, มีนบุรี, บางนา)", deliverable: "รายงานสต็อกสาขาเมกาโฮม & แผนขอตัดโอน (Stock Pull List)", pic: "Inventory / Merchandiser", status: "In Progress" },
+      { id: 6, day: "D-35", cat: "Operation", task: "ยื่นแบบก่อสร้าง & เอกสารขอใช้กระแสไฟฟ้ากับฝ่ายจัดการ IMPACT", deliverable: "แบบฟอร์มขอเข้าพื้นที่ & ใบเสร็จค่าบริการระบบไฟ", pic: "Production Lead", status: "To Do" },
+      { id: 7, day: "D-32", cat: "Marketing", task: "ออกแบบ Artwork สื่อสิ่งพิมพ์ (Pallet Skirt, Header, Tag ราคา, โบรชัวร์)", deliverable: "Final Artwork files (AI/PDF 300dpi)", pic: "Graphic Designer", status: "To Do" },
+      { id: 8, day: "D-30", cat: "Logistics", task: "ส่งข้อมูลรหัส Barcode / SKU / ราคางานแฟร์ให้ระบบแคชเชียร์ HomePro", deliverable: "ไฟล์ Mapping Barcode อนุมัติผ่านระบบ HomePro", pic: "Sales Admin", status: "To Do" },
+      { id: 9, day: "D-28", cat: "Staff", task: "คัดเลือกและแต่งตั้งหัวหน้าทีมขาย (PC Supervisor) ควบคุมประจำบูธ", deliverable: "สัญญาแต่งตั้ง PC Supervisor & ตารางเวร 10 วัน", pic: "HR / Sales Lead", status: "To Do" },
+      { id: 10, day: "D-25", cat: "Operation", task: "สั่งผลิตโครงสร้างประหยัดงบ (โครงแร็คเหล็ก, ชั้นตะแกรง Pegboard)", deliverable: "ใบสั่งผลิต (PO) พร้อมนัดส่งมอบโครงสร้าง", pic: "Production Lead", status: "To Do" },
+      { id: 11, day: "D-24", cat: "Mega Home", task: "ยื่นขออนุมัติเอกสารโอนย้ายสินค้าข้ามสาขา (Inter-Branch Transfer Order / STO) กับฝ่าย Buyer เมกาโฮม", deliverable: "ใบคำขอ STO อนุมัติเข้าระบบคลังสินค้า HomePro Expo", pic: "Sales Admin / Buyer", status: "To Do" },
+      { id: 12, day: "D-22", cat: "Operation", task: "ประกอบแท่นทดสอบสายยางจำลอง (Dry-Test Interactive Stand)", deliverable: "ชุดแท่นทดลองสัมผัสสายยาง TOYOX พร้อมใช้งาน", pic: "Production Lead", status: "To Do" },
+      { id: 13, day: "D-20", cat: "Marketing", task: "รับมอบงานพิมพ์ POSM ทั้งหมด ตรวจสอบโค้ดราคาและความคมชัด", deliverable: "ป้ายไวนิลคลุมพาเลท, ป้ายราคา, แผ่นพับ", pic: "Marketing Lead", status: "To Do" },
+      { id: 14, day: "D-18", cat: "Staff", task: "อบรม PC Supervisor (Product Knowledge TOYOX ญี่ปุ่น + ความแกร่งพญานาค และกลยุทธ์คุมเป้ายอดขาย)", deliverable: "คู่มือ Sales Supervisor Cheatsheet & สคริปต์ปิดการขาย", pic: "Product Specialist", status: "To Do" },
+      { id: 15, day: "D-15", cat: "Logistics", task: "ทำ Barcode Auditing สุ่มสแกนป้ายราคากับกล่องสินค้าจริง 100%", deliverable: "รายงานผลตรวจ Barcode 0% Error", pic: "QC / Inventory", status: "To Do" },
+      { id: 16, day: "D-12", cat: "Operation", task: "Mock-up บูธจำลองขนาด 2x3.6 ม. ที่คลัง ตรวจสอบการหยิบของ", deliverable: "ภาพถ่ายแบบจัดจำลอง & Checklist การปรับปรุง", pic: "Project Manager", status: "To Do" },
+      { id: 17, day: "D-11", cat: "Mega Home", task: "ตรวจนับและล็อกสต็อกสินค้าจริงที่สาขาเมกาโฮมต้นทาง พร้อมติดป้าย 'สินค้าจองสำหรับงาน Expo'", deliverable: "ใบตรวจนับสต็อกสาขา & พาเลทพร้อมโหลด", pic: "QC / Warehouse", status: "To Do" },
+      { id: 18, day: "D-10", cat: "Logistics", task: "จัดคิวรถขนส่ง & ขอใบอนุญาตนำรถเข้าโซน Marshalling IMPACT", deliverable: "Vehicle Access Pass & บัตรประจำตัวรถขนส่ง", pic: "Logistics Lead", status: "To Do" },
+      { id: 19, day: "D-8", cat: "Staff", task: "ออกบัตร Exhibitor Badges และเตรียมชุดยูนิฟอร์มทีมงานทุกคน", deliverable: "บัตรคล้องคอเข้าฮอลล์ 8-9 & เสื้อทีมพร้อมป้ายชื่อ", pic: "Sales Admin", status: "To Do" },
+      { id: 20, day: "D-7", cat: "Marketing", task: "ยิงสื่อประชาสัมพันธ์ Online / Social ปักหมุดพิกัดบูธในฮอลล์ 8-9", deliverable: "Campaign ยิงแอด Facebook / LINE OA ปักหมุดบูธ", pic: "Marketing Lead", status: "To Do" },
+      { id: 21, day: "D-5", cat: "Operation", task: "เตรียมอุปกรณ์ฉุกเฉินประจำบูธ (Toolbox, สายรัด, เทป, ปลั๊กพ่วงสำรอง)", deliverable: "กล่อง Emergency Toolbox ประจำบูธ", pic: "Production Lead", status: "To Do" },
+      { id: 22, day: "D-4", cat: "Mega Home", task: "ขบวนรถเข้ารับสินค้าจากสาขาเมกาโฮมต้นทาง วิ่งรวมกับเที่ยวรถหลักมุ่งหน้าสู่ IMPACT", deliverable: "ใบส่งของ (Delivery Order) & ใบตรวจรับสินค้าขึ้นรถ", pic: "Logistics Lead", status: "To Do" },
+      { id: 23, day: "D-3", cat: "Logistics", task: "ตรวจแพ็กสินค้าจริง ซีลพลาสติกคลุมพาเลทแยกตามรหัส 6 พาเลท", deliverable: "สินค้า 6 พาเลทติดสติกเกอร์กำกับพร้อมขึ้นรถ", pic: "Warehouse Team", status: "To Do" },
+      { id: 24, day: "D-2", cat: "Operation", task: "Move-in Day: รถบรรทุกเข้า IMPACT ลงพาเลทและติดตั้งโครงสร้าง", deliverable: "โครงสร้าง แร็ค ป้ายแบรนด์ ติดตั้งเสร็จสมบูรณ์", pic: "Production Lead", status: "To Do" },
+      { id: 25, day: "D-1", cat: "Mega Home", task: "ตรวจรับสต็อกโอนจากเมกาโฮมเข้าสู่บูธ (Goods Receipt - GR) ที่ฮอลล์ 8-9 และยิงบาร์โค้ดทดสอบ", deliverable: "ใบยืนยันรับสต็อกครบ 100% บาร์โค้ดตรงระบบแคชเชียร์", pic: "Project Manager / PC Supervisor", status: "To Do" },
+      { id: 26, day: "D-Day", cat: "Staff", task: "เปิดบูธวันแรก: บรีฟ PC Supervisor ตรวจสอบแคชเชียร์และเปิดรับลูกค้า 10:00 น.", deliverable: "เปิดการขาย & รายงานยอดขายวันแรกจาก PC Supervisor", pic: "Sales Lead / PC Supervisor", status: "To Do" },
+      { id: 27, day: "D+4", cat: "Mega Home", task: "(In-Fair Contingency) แผนดึงสต็อกเร่งด่วนจากเมกาโฮมสาขาใกล้เคียง (รังสิต/บางใหญ่) กรณีสินค้าขาดสต็อกช่วงสุดสัปดาห์", deliverable: "Fast-Track Replenishment รถกระบะส่งของภายใน 3 ชม.", pic: "Inventory Lead", status: "To Do" },
+      { id: 28, day: "D+10", cat: "Operation", task: "Tear-down & Move-out: รื้อถอนโครงสร้าง เคลียร์พื้นที่ส่งคืน IMPACT ก่อนเที่ยงคืน", deliverable: "พื้นที่คืนสภาพเดิม 100% ได้รับเงินมัดจำคืน", pic: "Production Lead", status: "To Do" },
+      { id: 29, day: "D+11", cat: "Mega Home", task: "ตรวจนับสต็อกคงเหลือหลังปิดงาน และเปิดเอกสารโอนสินค้าคืนกลับสาขาเมกาโฮมเดิม (Return STO)", deliverable: "ใบโอนคืนสินค้า (Return Note) และปิดยอดทางบัญชี", pic: "Inventory / Sales Admin", status: "To Do" }
+    ];
+
+    let tasks = [...initialTasks];
+
+    const palletDetails = {
+      1: {
+        title: "PALLET 1: TOYOX HERO SET (1.0 × 1.2 ม. | หน้าซ้ายติดทางเดินหลัก)",
+        desc: "• สินค้าเด่น: สายยางโรลสำเร็จรูปพร้อมหัวฉีด, สายยางพรีเมียมตัดเมตร (ความยาว 10ม./15ม./20ม.)<br>• ป้ายสื่อ: ป้าย Header สเปก 'นวัตกรรมญี่ปุ่น ตากแดด 5 ปีไม่กรอบ ไม่ขึ้นตะไคร่น้ำ ไร้สารก่อมะเร็ง'<br>• การตกแต่ง: ผ้าคลุมพาเลทสีน้ำเงิน TOYOX Japan ปรับระดับความสูงชั้นวางลดหลั่น 3 ระดับ"
+      },
+      2: {
+        title: "PALLET 2: TOUCH & TRY DEMO STAND (1.0 × 1.2 ม. | หน้ากลาง ติดทางเดินหลัก)",
+        desc: "• การจัดวาง: แท่น Dry Demonstration สำหรับให้ลูกค้าทดลองบิด พับ บีบ เพื่อสัมผัสการคืนตัวของสายยาง TOYOX<br>• ไฮไลต์: ชิ้นส่วนผ่าตัดขวางโครงสร้าง 3-4 ชั้น แสดงเส้นใยถักโพลีเอสเตอร์เหนียวพิเศษ<br>• กฎควบคุม: ไม่ใช้น้ำเปียก ป้องกันการลื่นและประหยัดค่าน้ำประปาฮอลล์"
+      },
+      3: {
+        title: "PALLET 3: พญานาค BRASS NOZZLES & QUICK COUPLERS (1.0 × 1.2 ม. | หน้าขวา)",
+        desc: "• สินค้าเด่น: หัวฉีดน้ำทองเหลืองแท้ตราพญานาค, ข้อต่อสวมเร็วทองเหลืองสำหรับต่อก็อกน้ำ, แคลมป์รัดท่อ<br>• การตกแต่ง: แผง Pegboard โครงเหล็กโปร่ง แขวนสินค้าแบบ Blister Pack ในระดับสายตา (Eye-level)<br>• กลยุทธ์: สินค้าซื้อพ่วง (Cross-selling) จัดโปรโมชั่น 'ซื้อสายยาง TOYOX แลกซื้อหัวฉีดพญานาคลด 40%'"
+      },
+      4: {
+        title: "PALLET 4: TOYOX BULK & PROMOTION (1.0 × 1.2 ม. | หลังซ้าย)",
+        desc: "• สินค้าเด่น: สายยางม้วนใหญ่ 50ม. และ 100ม. สำหรับลูกค้าช่าง รับเหมา หรือเจ้าของสวนขนาดใหญ่<br>• การจัดวาง: วางซ้อนบนพาเลทอย่างเป็นระเบียบ พร้อมป้ายราคาส่วนลดต่อเมตรพิเศษเฉพาะงาน HomePro Expo"
+      },
+      5: {
+        title: "PALLET 5: FAST-MOVING INVENTORY (1.0 × 1.2 ม. | หลังกลาง)",
+        desc: "• ฟังก์ชัน: สต็อกสินค้าพร้อมหยิบ (Grab & Go) รุ่นขายดีที่สุด (มีสต็อกที่ตัดโอนจากเมกาโฮมมาเสริม) ให้ลูกค้าหยิบไปจ่ายเงินได้ทันที<br>• ความปลอดภัย: วางสินค้าสูงไม่เกิน 1.40 ม. เพื่อความมั่นคงและมองเห็นทั่วบูธ"
+      },
+      6: {
+        title: "PALLET 6: CHECKOUT COUNTER & PC SUPERVISOR STATION (1.0 × 1.2 ม. | หลังขวา)",
+        desc: "• ฟังก์ชัน: จุดประจำการของ PC Supervisor ให้คำแนะนำ, แท่นวางแคตตาล็อก, สแกน QR Code เพื่อรับประกันสินค้า<br>• สิ่งอำนวยความสะดวก: ลิ้นชักเก็บเอกสารบาร์โค้ดสำรอง และกล่องอุปกรณ์ Service Toolbox"
+      }
+    };
+
+    function renderTasks() {
+      const tbody = document.getElementById("task-table-body");
+      const searchVal = document.getElementById("task-search").value.toLowerCase();
+      const catVal = document.getElementById("category-filter").value;
+      const statusVal = document.getElementById("status-filter").value;
+
+      tbody.innerHTML = "";
+
+      const filtered = tasks.filter(t => {
+        const matchSearch = t.task.toLowerCase().includes(searchVal) || t.pic.toLowerCase().includes(searchVal) || t.day.toLowerCase().includes(searchVal);
+        const matchCat = (catVal === "ALL") || (t.cat === catVal);
+        const matchStatus = (statusVal === "ALL") || (t.status === statusVal);
+        return matchSearch && matchCat && matchStatus;
+      });
+
+      filtered.forEach(t => {
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors";
+
+        let catBadge = "";
+        if (t.cat === "Mega Home") catBadge = `<span class="badge-pill bg-orange-500/10 text-orange-600 dark:text-orange-400 border border-orange-500/20">Mega Home Transfer</span>`;
+        else if (t.cat === "Operation") catBadge = `<span class="badge-pill bg-purple-500/10 text-purple-600 dark:text-purple-400 border border-purple-500/20">Operation</span>`;
+        else if (t.cat === "Marketing") catBadge = `<span class="badge-pill bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">Marketing</span>`;
+        else if (t.cat === "Logistics") catBadge = `<span class="badge-pill bg-cyan-500/10 text-cyan-600 dark:text-cyan-400 border border-cyan-500/20">Logistics</span>`;
+        else if (t.cat === "Staff") catBadge = `<span class="badge-pill bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">Staff</span>`;
+        else catBadge = `<span class="badge-pill bg-slate-500/10 text-slate-600 dark:text-slate-400 border border-slate-500/20">${t.cat}</span>`;
+
+        let statusBtn = "";
+        if (t.status === "Done") {
+          statusBtn = `<button onclick="cycleStatus(${t.id})" class="badge-pill bg-emerald-500 text-white hover:opacity-80 transition-all cursor-pointer">✓ Done</button>`;
+        } else if (t.status === "In Progress") {
+          statusBtn = `<button onclick="cycleStatus(${t.id})" class="badge-pill bg-blue-500 text-white hover:opacity-80 transition-all cursor-pointer">⚡ In Progress</button>`;
+        } else {
+          statusBtn = `<button onclick="cycleStatus(${t.id})" class="badge-pill bg-slate-200 text-slate-700 dark:bg-slate-800 dark:text-slate-300 hover:opacity-80 transition-all cursor-pointer">⏳ To Do</button>`;
+        }
+
+        tr.innerHTML = `
+          <td class="p-3 text-center font-bold text-blue-600 dark:text-blue-400">${t.day}</td>
+          <td class="p-3">${catBadge}</td>
+          <td class="p-3 font-medium">${t.task}</td>
+          <td class="p-3 text-slate-500 dark:text-slate-400">${t.deliverable}</td>
+          <td class="p-3 text-xs font-semibold">${t.pic}</td>
+          <td class="p-3 text-center">${statusBtn}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      updateProgress();
+    }
+
+    function cycleStatus(id) {
+      const item = tasks.find(t => t.id === id);
+      if (!item) return;
+      if (item.status === "To Do") item.status = "In Progress";
+      else if (item.status === "In Progress") item.status = "Done";
+      else item.status = "To Do";
+      renderTasks();
+    }
+
+    function filterTasks() {
+      renderTasks();
+    }
+
+    function updateProgress() {
+      const doneCount = tasks.filter(t => t.status === "Done").length;
+      const total = tasks.length;
+      const pct = Math.round((doneCount / total) * 100);
+
+      document.getElementById("overall-progress-pct").innerText = `${pct}%`;
+      document.getElementById("tasks-done-count").innerText = `${doneCount}/${total}`;
+      document.getElementById("progress-bar-fill").style.width = `${pct}%`;
+
+      const label = document.getElementById("progress-status-label");
+      if (pct === 100) label.innerText = "🎉 ทุกงานเสร็จสมบูรณ์ 100% บูธพร้อมเปิดบริการ!";
+      else if (pct > 50) label.innerText = "🚀 เกินครึ่งทางแล้ว กำลังเตรียมส่งของเข้าพื้นที่ IMPACT";
+      else label.innerText = "อยู่ระหว่างดำเนินงานตามแผนนับถอยหลัง D-45";
+    }
+
+    function switchTab(tabId) {
+      const tabs = ["tab-tracker", "tab-sales", "tab-megahome", "tab-planogram", "tab-budget", "tab-audit"];
+      tabs.forEach(t => {
+        const el = document.getElementById(t);
+        if (el) el.classList.add("hidden");
+        const btn = document.getElementById("btn-" + t);
+        if (btn) {
+          btn.className = "px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-white dark:bg-slate-900 text-slate-500 dark:text-slate-400 hover:text-slate-900 border border-slate-200 dark:border-slate-800";
+        }
+      });
+
+      const activeEl = document.getElementById(tabId);
+      if (activeEl) activeEl.classList.remove("hidden");
+      const activeBtn = document.getElementById("btn-" + tabId);
+      if (activeBtn) {
+        activeBtn.className = "px-4 py-2 rounded-lg font-semibold text-sm transition-all bg-blue-600 text-white shadow-sm";
+      }
+
+      if (tabId === "tab-sales") {
+        renderStockTable();
+      }
+    }
+
+    // ==========================================
+    // DAILY SALES & STOCK DEDUCTION LOGIC
+    // ==========================================
+    const defaultStockData = [
+      { id: 1, sku: "TYX-MZ-10M", brand: "TOYOX", desc: "สายยางรดน้ำ TOYOX Mizu-maki 5/8\" (15 มม.) ยาว 10ม. พร้อมข้อต่อก็อกสนาม", price: 590, stock: 40, sold: 12, source: "คลังหลัก TTT" },
+      { id: 2, sku: "TYX-MZ-15M", brand: "TOYOX", desc: "สายยางรดน้ำ TOYOX Mizu-maki 5/8\" (15 มม.) ยาว 15ม. พร้อมหัวฉีดปรับระดับ (Hero Item)", price: 790, stock: 60, sold: 24, source: "โอนจากเมกาโฮม รังสิต" },
+      { id: 3, sku: "TYX-MZ-20M", brand: "TOYOX", desc: "สายยางรดน้ำ TOYOX Mizu-maki 5/8\" (15 มม.) ยาว 20ม. นิ่มพิเศษ ไม่พับหักงอ", price: 990, stock: 50, sold: 18, source: "คลังหลัก TTT" },
+      { id: 4, sku: "TYX-MZ-30M", brand: "TOYOX", desc: "สายยางรดน้ำ TOYOX Mizu-maki 5/8\" (15 มม.) ยาว 30ม. ป้องกันรังสี UV ไม่กรอบแตก", price: 1390, stock: 30, sold: 8, source: "โอนจากเมกาโฮม บางใหญ่" },
+      { id: 5, sku: "TYX-TG-15M", brand: "TOYOX", desc: "สายยาง Toyo-Garden 3 ชั้น ขนาด 5/8\" ยาว 15ม. ตากแดด 5 ปีไม่ขึ้นตะไคร่น้ำ", price: 850, stock: 45, sold: 15, source: "คลังหลัก TTT" },
+      { id: 6, sku: "TYX-TG-20M", brand: "TOYOX", desc: "สายยาง Toyo-Garden 3 ชั้น ขนาด 5/8\" ยาว 20ม. ใยด้ายถักเหนียวทนแรงดันสูง", price: 1050, stock: 35, sold: 11, source: "โอนจากเมกาโฮม มีนบุรี" },
+      { id: 7, sku: "TYX-REEL-15M", brand: "TOYOX", desc: "โรลสายยางสำเร็จรูป TOYOX Hose Reel Set 15ม. กล่องเก็บสายเรียบหรูพร้อมหัวฉีด", price: 2290, stock: 25, sold: 7, source: "คลังหลัก TTT" },
+      { id: 8, sku: "TYX-REEL-20M", brand: "TOYOX", desc: "โรลสายยางสำเร็จรูป TOYOX Hose Reel Set 20ม. ตัวหมุนเก็บง่าย พร้อมชุดอุปกรณ์ครบเซ็ต", price: 2690, stock: 20, sold: 6, source: "คลังหลัก TTT" },
+      { id: 9, sku: "TYX-FOOD-15M", brand: "TOYOX", desc: "สายยาง Food Grade Eco-Hose ไร้สารก่อมะเร็ง ไร้กลิ่นยาง ปลอดภัยต่อน้ำดื่ม 15ม.", price: 1250, stock: 25, sold: 5, source: "คลังหลัก TTT" },
+      { id: 10, sku: "TYX-BULK-50M", brand: "TOYOX", desc: "สายยางม้วนใหญ่พิเศษ 50 เมตร สำหรับช่าง/ผู้รับเหมา/สวนใหญ่ (ราคาลดพิเศษ)", price: 2100, stock: 15, sold: 4, source: "คลังหลัก TTT" },
+      { id: 11, sku: "PYN-NOZ-STR", brand: "พญานาค", desc: "หัวฉีดน้ำทองเหลืองแท้พญานาค แบบตรง ปรับสายน้ำ 4 รูปแบบ ทนแรงดัน ไม่เป็นสนิม", price: 250, stock: 80, sold: 38, source: "คลังหลัก TTT" },
+      { id: 12, sku: "PYN-GUN-PRO", brand: "พญานาค", desc: "ปืนฉีดน้ำทองเหลืองแท้พญานาค Heavy Duty พร้อมไกกดล็อคพ่นน้ำต่อเนื่อง", price: 390, stock: 70, sold: 29, source: "โอนจากเมกาโฮม รังสิต" },
+      { id: 13, sku: "PYN-TAP-QC", brand: "พญานาค", desc: "ข้อต่อสวมเร็วทองเหลืองพญานาค ต่อก็อกน้ำสนาม 1/2\" และ 3/4\" เกลียวแน่นหนา", price: 150, stock: 100, sold: 46, source: "คลังหลัก TTT" },
+      { id: 14, sku: "PYN-HOSE-QC", brand: "พญานาค", desc: "ข้อต่อสวมเร็วทองเหลืองพญานาค ต่อสายยาง 5/8\" ระบบ Water Stop น้ำไม่พุ่งเวลาถอด", price: 180, stock: 90, sold: 42, source: "โอนจากเมกาโฮม บางใหญ่" },
+      { id: 15, sku: "PYN-CLP-SET", brand: "พญานาค", desc: "ชุดแคลมป์รัดท่อทองเหลือง/สแตนเลส พญานาค (3 ชิ้น/แพ็ก) รัดสายยางแน่นหนา", price: 95, stock: 120, sold: 55, source: "คลังหลัก TTT" },
+      { id: 16, sku: "PYN-3WAY-Y", brand: "พญานาค", desc: "ข้อต่อ 3 ทางทองเหลืองพญานาค (Y-Coupler) แยก 2 ทางพร้อมวาล์วเปิด-ปิดอิสระ", price: 290, stock: 50, sold: 19, source: "คลังหลัก TTT" }
+    ];
+
+    let stockItems = JSON.parse(localStorage.getItem("hp_expo_stock_data")) || defaultStockData;
+
+    function renderStockTable() {
+      const tbody = document.getElementById("stock-table-body");
+      if (!tbody) return;
+
+      const searchVal = (document.getElementById("stock-search") ? document.getElementById("stock-search").value : "").toLowerCase();
+      const brandVal = document.getElementById("stock-brand-filter") ? document.getElementById("stock-brand-filter").value : "ALL";
+
+      tbody.innerHTML = "";
+
+      let totalStockCount = 0;
+      let totalSoldCount = 0;
+      let totalRemainCount = 0;
+      let totalRevenue = 0;
+      let lowStockAlertCount = 0;
+
+      const filtered = stockItems.filter(item => {
+        const matchSearch = item.desc.toLowerCase().includes(searchVal) || item.sku.toLowerCase().includes(searchVal);
+        let matchBrand = true;
+        if (brandVal === "TOYOX") matchBrand = (item.brand === "TOYOX");
+        else if (brandVal === "พญานาค") matchBrand = (item.brand === "พญานาค");
+        else if (brandVal === "เมกาโฮม") matchBrand = item.source.includes("เมกาโฮม");
+
+        return matchSearch && matchBrand;
+      });
+
+      filtered.forEach(item => {
+        const stockQty = Number(item.stock) || 0;
+        const soldQty = Number(item.sold) || 0;
+        const remainQty = Math.max(0, stockQty - soldQty);
+        const rowTotal = soldQty * (Number(item.price) || 0);
+
+        totalStockCount += stockQty;
+        totalSoldCount += soldQty;
+        totalRemainCount += remainQty;
+        totalRevenue += rowTotal;
+
+        let statusBadge = "";
+        if (remainQty === 0) {
+          lowStockAlertCount++;
+          statusBadge = `<span class="badge-pill bg-red-600 text-white animate-pulse">🔴 หมดสต็อก</span>`;
+        } else if (remainQty < 10) {
+          lowStockAlertCount++;
+          statusBadge = `<span class="badge-pill bg-amber-500 text-white">⚠️ เหลือน้อย (${remainQty})</span>`;
+        } else {
+          statusBadge = `<span class="badge-pill bg-emerald-500/10 text-emerald-600 dark:text-emerald-400 border border-emerald-500/20">🟢 ปกติ (${remainQty})</span>`;
+        }
+
+        let brandBadge = item.brand === "TOYOX" 
+          ? `<span class="badge-pill bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-500/20">TOYOX</span>`
+          : `<span class="badge-pill bg-amber-500/10 text-amber-600 dark:text-amber-400 border border-amber-500/20">พญานาค</span>`;
+
+        let sourceBadge = item.source.includes("เมกาโฮม")
+          ? `<span class="text-[10px] text-orange-600 dark:text-orange-400 font-semibold flex items-center gap-1">📦 ${item.source}</span>`
+          : `<span class="text-[10px] text-slate-500 dark:text-slate-400">🏭 ${item.source}</span>`;
+
+        const tr = document.createElement("tr");
+        tr.className = "hover:bg-slate-50 dark:hover:bg-slate-800/40 transition-colors";
+
+        tr.innerHTML = `
+          <td class="p-3 font-mono font-bold text-slate-700 dark:text-slate-300 text-[11px]">${item.sku}</td>
+          <td class="p-3">${brandBadge}</td>
+          <td class="p-3 font-medium text-slate-900 dark:text-slate-100 max-w-xs md:max-w-md">${item.desc}</td>
+          <td class="p-3 text-right font-semibold text-slate-700 dark:text-slate-300">฿${Number(item.price).toLocaleString()}</td>
+          <td class="p-3 text-center bg-blue-50/40 dark:bg-blue-950/10">
+            <input type="number" min="0" value="${stockQty}" onchange="updateItemStock(${item.id}, this.value)" class="w-16 text-center font-bold px-1 py-0.5 rounded border border-slate-300 dark:border-slate-600 bg-white dark:bg-slate-900 text-blue-600 dark:text-blue-400 focus:outline-none focus:ring-1 focus:ring-blue-500">
+          </td>
+          <td class="p-3 text-center bg-amber-50/40 dark:bg-amber-950/10">
+            <input type="number" min="0" value="${soldQty}" onchange="updateItemSold(${item.id}, this.value)" class="w-16 text-center font-bold px-1 py-0.5 rounded border border-amber-400 dark:border-amber-600 bg-white dark:bg-slate-900 text-amber-700 dark:text-amber-400 focus:outline-none focus:ring-1 focus:ring-amber-500">
+          </td>
+          <td class="p-3 text-center font-extrabold bg-emerald-50/40 dark:bg-emerald-950/10 ${remainQty < 10 ? 'text-rose-600 dark:text-rose-400' : 'text-emerald-600 dark:text-emerald-400'} text-sm">
+            ${remainQty}
+          </td>
+          <td class="p-3 text-right font-bold text-purple-600 dark:text-purple-400">฿${rowTotal.toLocaleString()}</td>
+          <td class="p-3">${sourceBadge}</td>
+          <td class="p-3 text-center">${statusBadge}</td>
+        `;
+        tbody.appendChild(tr);
+      });
+
+      // Update KPIs
+      if (document.getElementById("stock-kpi-total")) document.getElementById("stock-kpi-total").innerText = `${totalStockCount.toLocaleString()} ชิ้น`;
+      if (document.getElementById("stock-kpi-sold")) document.getElementById("stock-kpi-sold").innerText = `${totalSoldCount.toLocaleString()} ชิ้น`;
+      if (document.getElementById("stock-kpi-remain")) document.getElementById("stock-kpi-remain").innerText = `${totalRemainCount.toLocaleString()} ชิ้น`;
+      if (document.getElementById("stock-kpi-revenue")) document.getElementById("stock-kpi-revenue").innerText = `฿${totalRevenue.toLocaleString()}`;
+      if (document.getElementById("stock-kpi-alerts")) document.getElementById("stock-kpi-alerts").innerText = `${lowStockAlertCount} รายการ`;
+
+      // --- TARGET 320,000 THB & COMMISSION CALCULATION ---
+      const SALES_TARGET = 320000;
+      const targetPct = totalRevenue > 0 ? ((totalRevenue / SALES_TARGET) * 100) : 0;
+      const targetPctFormatted = targetPct.toFixed(1);
+
+      if (document.getElementById("stock-kpi-target-sub")) {
+        document.getElementById("stock-kpi-target-sub").innerText = `เป้าหมาย ฿${SALES_TARGET.toLocaleString()} (${Math.round(targetPct)}%)`;
+      }
+      if (document.getElementById("target-progress-pct")) {
+        document.getElementById("target-progress-pct").innerText = `${targetPctFormatted}%`;
+      }
+      if (document.getElementById("target-actual-rev")) {
+        document.getElementById("target-actual-rev").innerText = `฿${totalRevenue.toLocaleString()}`;
+      }
+      if (document.getElementById("target-progress-bar")) {
+        document.getElementById("target-progress-bar").style.width = `${Math.min(100, Math.max(0, targetPct))}%`;
+      }
+      if (document.getElementById("target-remain-label")) {
+        const diff = SALES_TARGET - totalRevenue;
+        if (diff > 0) {
+          document.getElementById("target-remain-label").innerHTML = `ขาดอีก <b class="text-amber-400 font-mono">฿${diff.toLocaleString()}</b> เพื่อพิชิตเป้าหมาย`;
+        } else {
+          document.getElementById("target-remain-label").innerHTML = `🎉 <b class="text-emerald-300 font-mono">ทะลุเป้าหมายแล้ว!</b> เกินเป้า +฿${Math.abs(diff).toLocaleString()}`;
+        }
+      }
+
+      // Step Calculation:
+      // Step 1: 0 - 99,999 (1%)
+      // Step 2: 100,000 - 199,999 (2%)
+      // Step 3: 200,000 - 299,999 (3%)
+      // Step 4: 300,000 ขึ้นไป (4%)
+      let currentStep = 1;
+      let currentRate = 1;
+
+      if (totalRevenue >= 300000) {
+        currentStep = 4;
+        currentRate = 4;
+      } else if (totalRevenue >= 200000) {
+        currentStep = 3;
+        currentRate = 3;
+      } else if (totalRevenue >= 100000) {
+        currentStep = 2;
+        currentRate = 2;
+      } else {
+        currentStep = 1;
+        currentRate = 1;
+      }
+
+      // Flat Commission (เหมาทั้งก้อนตามขั้น)
+      const flatCommission = Math.round(totalRevenue * (currentRate / 100));
+
+      // Progressive Commission (ขั้นบันไดสะสม)
+      let prog1 = Math.min(totalRevenue, 99999) * 0.01;
+      let prog2 = totalRevenue >= 100000 ? (Math.min(totalRevenue, 199999) - 100000) * 0.02 : 0;
+      let prog3 = totalRevenue >= 200000 ? (Math.min(totalRevenue, 299999) - 200000) * 0.03 : 0;
+      let prog4 = totalRevenue >= 300000 ? (totalRevenue - 300000) * 0.04 : 0;
+      const progCommission = Math.round(prog1 + prog2 + prog3 + prog4);
+
+      if (document.getElementById("comm-earned-val")) {
+        document.getElementById("comm-earned-val").innerText = `฿${flatCommission.toLocaleString()}`;
+      }
+      if (document.getElementById("comm-current-tier-tag")) {
+        document.getElementById("comm-current-tier-tag").innerText = `Step ${currentStep} (${currentRate}%) • เหมาขั้น`;
+      }
+
+      // Update Step Cards & Statuses
+      for (let s = 1; s <= 4; s++) {
+        const card = document.getElementById(`comm-step-card-${s}`);
+        const statusSpan = document.getElementById(`comm-step-status-${s}`);
+        if (!card || !statusSpan) continue;
+
+        card.className = "p-3.5 rounded-xl border transition-all";
+
+        if (s < currentStep) {
+          card.classList.add("bg-slate-800/80", "border-emerald-500/50", "text-slate-300");
+          statusSpan.className = "font-bold text-emerald-400";
+          statusSpan.innerHTML = "✓ ผ่านเกณฑ์แล้ว";
+        } else if (s === currentStep) {
+          card.classList.add("bg-gradient-to-b", "from-slate-800", "to-amber-950/40", "border-amber-400", "shadow-lg", "shadow-amber-500/10", "ring-2", "ring-amber-400/50");
+          statusSpan.className = "font-extrabold text-amber-400";
+          statusSpan.innerHTML = `⭐ ขั้นปัจจุบัน (${currentRate}%)`;
+        } else {
+          card.classList.add("bg-slate-800/40", "border-slate-700", "opacity-75");
+          const stepMin = s === 2 ? 100000 : (s === 3 ? 200000 : 300000);
+          const gap = stepMin - totalRevenue;
+          statusSpan.className = "font-medium text-slate-400";
+          statusSpan.innerHTML = `ขาดอีก ฿${gap.toLocaleString()}`;
+        }
+      }
+
+      // Formula breakdown labels
+      if (document.getElementById("comm-calc-formula-flat")) {
+        document.getElementById("comm-calc-formula-flat").innerText = `฿${totalRevenue.toLocaleString()} × ${currentRate}% = ฿${flatCommission.toLocaleString()}`;
+      }
+      if (document.getElementById("comm-calc-formula-prog")) {
+        document.getElementById("comm-calc-formula-prog").innerText = `สะสมแต่ละขั้น = ฿${progCommission.toLocaleString()}`;
+      }
+    }
+
+    function updateItemStock(id, newStock) {
+      const it = stockItems.find(x => x.id === id);
+      if (it) {
+        it.stock = Math.max(0, parseInt(newStock) || 0);
+        saveStockStorage();
+        renderStockTable();
+      }
+    }
+
+    function updateItemSold(id, newSold) {
+      const it = stockItems.find(x => x.id === id);
+      if (it) {
+        it.sold = Math.max(0, parseInt(newSold) || 0);
+        saveStockStorage();
+        renderStockTable();
+      }
+    }
+
+    function filterStockTable() {
+      renderStockTable();
+    }
+
+    function changeReportDay() {
+      renderStockTable();
+    }
+
+    function saveStockStorage() {
+      try {
+        localStorage.setItem("hp_expo_stock_data", JSON.stringify(stockItems));
+      } catch (e) {}
+    }
+
+    function resetStockDefaults() {
+      if (confirm("ต้องการรีเซ็ตยอดขายและสต็อกเป็นค่าเริ่มต้นจาก Google Sheets หรือไม่?")) {
+        stockItems = JSON.parse(JSON.stringify(defaultStockData));
+        saveStockStorage();
+        renderStockTable();
+      }
+    }
+
+    function addNewProductModal() {
+      const sku = prompt("กรอกรหัส SKU สินค้า (เช่น TYX-NEW-01 หรือ PYN-NEW-01):");
+      if (!sku) return;
+      const desc = prompt("กรอกรายละเอียดสินค้า (DESCRIPTION):");
+      if (!desc) return;
+      const brand = sku.toUpperCase().startsWith("TYX") ? "TOYOX" : "พญานาค";
+      const price = parseInt(prompt("ราคาขายงาน Expo (บาท):", "500")) || 500;
+      const stock = parseInt(prompt("จำนวนสต็อกตั้งต้น (จำนวนStock):", "30")) || 30;
+      const source = prompt("แหล่งสต็อก (คลังหลัก TTT หรือ โอนจากเมกาโฮม):", "คลังหลัก TTT") || "คลังหลัก TTT";
+
+      const newItem = {
+        id: Date.now(),
+        sku: sku.trim().toUpperCase(),
+        brand: brand,
+        desc: desc.trim(),
+        price: price,
+        stock: stock,
+        sold: 0,
+        source: source.trim()
+      };
+
+      stockItems.push(newItem);
+      saveStockStorage();
+      renderStockTable();
+      alert("✅ เพิ่มสินค้าใหม่เรียบร้อย!");
+    }
+
+    function exportStockCSV() {
+      let csv = "\uFEFFรหัส SKU,แบรนด์,DESCRIPTION,ราคาขาย(บาท),จำนวนStock,ยอดขาย,คงเหลือ,ยอดขายรวม(บาท),แหล่งสต็อก\n";
+      stockItems.forEach(it => {
+        const remain = Math.max(0, (it.stock || 0) - (it.sold || 0));
+        const total = (it.sold || 0) * (it.price || 0);
+        csv += `"${it.sku}","${it.brand}","${it.desc.replace(/"/g, '""')}",${it.price},${it.stock},${it.sold},${remain},${total},"${it.source}"\n`;
+      });
+
+      const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `HomePro_Expo_Daily_Sales_Stock_${new Date().toISOString().slice(0,10)}.csv`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+    }
+
+    function toggleEmbeddedSheet() {
+      const container = document.getElementById("embedded-sheet-container");
+      if (container) {
+        container.classList.toggle("hidden");
+      }
+    }
+
+    function openGoogleSheetImportModal() {
+      const modal = document.getElementById("gsheet-import-modal");
+      if (modal) {
+        modal.classList.remove("hidden");
+        document.getElementById("gsheet-paste-area").focus();
+      }
+    }
+
+    function closeGoogleSheetImportModal() {
+      const modal = document.getElementById("gsheet-import-modal");
+      if (modal) {
+        modal.classList.add("hidden");
+      }
+    }
+
+    async function tryFetchGSheetLive() {
+      const sheetId = "1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE";
+      const gvizUrl = `https://docs.google.com/spreadsheets/d/${sheetId}/gviz/tq?tqx=out:csv&gid=0`;
+      
+      const btn = event.currentTarget;
+      const originalText = btn.innerHTML;
+      btn.innerHTML = `<span>⏳</span> กำลังเชื่อมต่อ Google Sheet...`;
+      btn.disabled = true;
+
+      try {
+        const res = await fetch(gvizUrl);
+        if (!res.ok) throw new Error("Status " + res.status);
+        const text = await res.text();
+        if (text && text.length > 20) {
+          document.getElementById("gsheet-paste-area").value = text;
+          parseAndImportGSheetData();
+          return;
+        } else {
+          throw new Error("Empty response");
+        }
+      } catch (err) {
+        alert("ℹ️ ไม่สามารถดึงข้อมูลอัตโนมัติจากเบราว์เซอร์ได้โดยตรง (เนื่องจากความปลอดภัย CORS หรือต้องลงชื่อเข้าใช้ Google)\n\n👉 วิธีที่ง่ายและเร็วที่สุด:\n1. กดเปิด Google Sheets จากปุ่มสีเขียว\n2. ลากคลุมตารางทั้งหมด (Ctrl+A หรือเลือกช่องที่ต้องการ) แล้วกด Ctrl+C\n3. นำมากดวาง (Ctrl+V) ในช่องข้อความด้านล่าง แล้วกดปุ่ม 'ประมวลผลและนำเข้าทันที'");
+      } finally {
+        btn.innerHTML = originalText;
+        btn.disabled = false;
+      }
+    }
+
+    function parseAndImportGSheetData() {
+      const rawText = document.getElementById("gsheet-paste-area").value.trim();
+      if (!rawText) {
+        alert("กรุณาวางข้อมูลที่คัดลอกจาก Google Sheets ก่อนครับ");
+        return;
+      }
+
+      const lines = rawText.split(/\r?\n/).map(l => l.trim()).filter(l => l.length > 0);
+      if (lines.length === 0) {
+        alert("ไม่พบข้อมูลแถวในข้อความที่วาง");
+        return;
+      }
+
+      const firstLine = lines[0];
+      const isTab = firstLine.includes("\t");
+
+      const rows = lines.map(line => {
+        if (isTab) {
+          return line.split("\t").map(c => c.trim().replace(/^["']|["']$/g, ''));
+        } else {
+          const parts = [];
+          let current = "";
+          let inQuote = false;
+          for (let i = 0; i < line.length; i++) {
+            const char = line[i];
+            if (char === '"' || char === "'") inQuote = !inQuote;
+            else if (char === ',' && !inQuote) {
+              parts.push(current.trim().replace(/^["']|["']$/g, ''));
+              current = "";
+            } else current += char;
+          }
+          parts.push(current.trim().replace(/^["']|["']$/g, ''));
+          return parts;
+        }
+      });
+
+      let headerRowIndex = -1;
+      let descCol = -1;
+      let stockCol = -1;
+      let soldCol = -1;
+      let skuCol = -1;
+      let priceCol = -1;
+      let brandCol = -1;
+
+      for (let i = 0; i < Math.min(3, rows.length); i++) {
+        const row = rows[i];
+        const rowStr = row.join(" ").toLowerCase();
+        if (rowStr.includes("desc") || rowStr.includes("stock") || rowStr.includes("สต๊อก") || rowStr.includes("ยอดขาย") || rowStr.includes("รายการ")) {
+          headerRowIndex = i;
+          row.forEach((col, idx) => {
+            const c = col.toLowerCase();
+            if (c.includes("desc") || c.includes("รายการ") || c.includes("สินค้า") || c.includes("ชื่อ")) descCol = idx;
+            else if (c.includes("จำนวนstock") || c.includes("stock") || c.includes("สต๊อก") || c.includes("สต็อก")) stockCol = idx;
+            else if (c.includes("ยอดขาย") || c.includes("sold") || c.includes("ขาย")) soldCol = idx;
+            else if (c.includes("sku") || c.includes("รหัส")) skuCol = idx;
+            else if (c.includes("ราคา") || c.includes("price")) priceCol = idx;
+            else if (c.includes("แบรนด์") || c.includes("brand")) brandCol = idx;
+          });
+          break;
+        }
+      }
+
+      const startIdx = (headerRowIndex >= 0) ? headerRowIndex + 1 : 0;
+      const newItems = [];
+
+      for (let i = startIdx; i < rows.length; i++) {
+        const cols = rows[i];
+        if (cols.length === 0 || (cols.length === 1 && !cols[0])) continue;
+
+        let desc = "";
+        let stock = 0;
+        let sold = 0;
+        let sku = "";
+        let price = 450;
+        let brand = "TOYOX";
+
+        if (headerRowIndex >= 0 && descCol >= 0) {
+          desc = cols[descCol] || `สินค้าแถวที่ ${i + 1}`;
+          stock = (stockCol >= 0 && cols[stockCol]) ? parseInt(cols[stockCol].replace(/[^0-9]/g, '')) || 0 : 30;
+          sold = (soldCol >= 0 && cols[soldCol]) ? parseInt(cols[soldCol].replace(/[^0-9]/g, '')) || 0 : 0;
+          sku = (skuCol >= 0 && cols[skuCol]) ? cols[skuCol] : `SKU-${100 + i}`;
+          price = (priceCol >= 0 && cols[priceCol]) ? parseInt(cols[priceCol].replace(/[^0-9]/g, '')) || 450 : 450;
+          brand = (brandCol >= 0 && cols[brandCol]) ? cols[brandCol] : (desc.includes("พญานาค") || desc.includes("หัวฉีด") ? "พญานาค" : "TOYOX");
+        } else {
+          if (cols.length >= 3) {
+            desc = cols[0];
+            stock = parseInt(cols[1].replace(/[^0-9]/g, '')) || 0;
+            sold = parseInt(cols[2].replace(/[^0-9]/g, '')) || 0;
+            sku = `SKU-${100 + i}`;
+            brand = (desc.includes("พญานาค") || desc.includes("หัวฉีด")) ? "พญานาค" : "TOYOX";
+          } else if (cols.length >= 2) {
+            desc = cols[0];
+            stock = parseInt(cols[1].replace(/[^0-9]/g, '')) || 0;
+            sold = 0;
+            sku = `SKU-${100 + i}`;
+            brand = (desc.includes("พญานาค") || desc.includes("หัวฉีด")) ? "พญานาค" : "TOYOX";
+          } else {
+            desc = cols[0];
+            stock = 30;
+            sold = 0;
+            sku = `SKU-${100 + i}`;
+            brand = (desc.includes("พญานาค") || desc.includes("หัวฉีด")) ? "พญานาค" : "TOYOX";
+          }
+        }
+
+        if (desc) {
+          newItems.push({
+            id: Date.now() + i,
+            sku: sku.trim().toUpperCase(),
+            brand: brand.trim(),
+            desc: desc.trim(),
+            price: price,
+            stock: stock,
+            sold: sold,
+            source: desc.includes("เมกาโฮม") ? "โอนจากเมกาโฮม" : "คลังหลัก TTT"
+          });
+        }
+      }
+
+      if (newItems.length > 0) {
+        stockItems = newItems;
+        saveStockStorage();
+        renderStockTable();
+        closeGoogleSheetImportModal();
+        alert(`🎉 นำเข้าข้อมูลจาก Google Sheets สำเร็จเรียบร้อย จำนวน ${newItems.length} รายการ!\nระบบตัดสต็อกและคำนวณคงเหลืออัตโนมัติแล้ว`);
+      } else {
+        alert("ไม่สามารถแปลงข้อมูลได้ กรุณาตรวจสอบรูปแบบตารางที่คัดลอกมา");
+      }
+    }
+
+    function selectPallet(id) {
+      for (let i = 1; i <= 6; i++) {
+        const el = document.getElementById(`pallet-card-${i}`);
+        if (el) {
+          if (i === id) {
+            el.classList.add("ring-2", "ring-blue-500", "shadow-lg");
+          } else {
+            el.classList.remove("ring-2", "ring-blue-500", "shadow-lg");
+          }
+        }
+      }
+
+      const info = palletDetails[id];
+      if (info) {
+        document.getElementById("detail-pallet-title").innerHTML = info.title;
+        document.getElementById("detail-pallet-desc").innerHTML = info.desc;
+      }
+    }
+
+    window.addEventListener("DOMContentLoaded", () => {
+      renderTasks();
+      renderStockTable();
+      selectPallet(1);
+    });
+  </script>
+
+  <!-- MODAL: GOOGLE SHEETS IMPORT & SYNC -->
+  <div id="gsheet-import-modal" class="hidden fixed inset-0 bg-black/60 z-50 flex items-center justify-center p-4 backdrop-blur-sm">
+    <div class="bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-2xl max-w-2xl w-full p-6 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-slate-800 pb-3">
+        <div class="flex items-center gap-2">
+          <span class="text-xl">📋</span>
+          <div>
+            <h3 class="font-bold text-base text-slate-900 dark:text-slate-100">นำเข้าข้อมูลสินค้าจาก Google Sheets</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">คัดลอกตารางจาก Google Sheets (Ctrl+C) แล้วกดวาง (Ctrl+V) ที่นี่ได้ทันที</p>
+          </div>
+        </div>
+        <button onclick="closeGoogleSheetImportModal()" class="text-slate-400 hover:text-slate-600 text-lg cursor-pointer">✕</button>
+      </div>
+
+      <div class="space-y-3">
+        <div class="p-3 bg-emerald-50 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-900/60 rounded-xl text-xs text-emerald-800 dark:text-emerald-300 flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <span>🔗</span>
+            <span><b>Google Sheets:</b> 1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE</span>
+          </div>
+          <a href="https://docs.google.com/spreadsheets/d/1b0SkF2jH8cDk77i-PRMg8XtVXA1-kRLbFy-ZYKeIYCE/edit?gid=0#gid=0" target="_blank" class="px-2.5 py-1 bg-emerald-600 text-white rounded-lg font-semibold hover:bg-emerald-700 transition-all">
+            เปิดดูไฟล์ Google Sheets ↗
+          </a>
+        </div>
+
+        <div>
+          <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+            วางข้อมูลที่คัดลอกจาก Google Sheets (รองรับ DESCRIPTION, จำนวนStock, ยอดขาย, คงเหลือ):
+          </label>
+          <textarea id="gsheet-paste-area" rows="6" placeholder="วางข้อมูลที่ Copy จาก Google Sheets ที่นี่...&#10;ตัวอย่าง:&#10;DESCRIPTION	จำนวนStock	ยอดขาย	คงเหลือ&#10;สายยาง TOYOX Mizu-maki 15ม.	60	24	36" class="w-full p-3 font-mono text-xs rounded-xl border border-slate-300 dark:border-slate-700 bg-slate-50 dark:bg-slate-950 focus:outline-none focus:ring-2 focus:ring-emerald-500"></textarea>
+        </div>
+
+        <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
+          <button onclick="tryFetchGSheetLive()" class="px-3.5 py-2 rounded-xl text-xs font-semibold bg-blue-50 dark:bg-blue-950/40 text-blue-700 dark:text-blue-300 hover:bg-blue-100 border border-blue-200 dark:border-blue-800 transition-all flex items-center gap-1.5 cursor-pointer">
+            <span>🔄</span> ดึงข้อมูลสดอัตโนมัติ (Live Sync)
+          </button>
+          
+          <div class="flex items-center gap-2">
+            <button onclick="closeGoogleSheetImportModal()" class="px-3.5 py-2 rounded-xl text-xs text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 transition-all cursor-pointer">
+              ยกเลิก
+            </button>
+            <button onclick="parseAndImportGSheetData()" class="px-4 py-2 rounded-xl text-xs font-bold bg-emerald-600 hover:bg-emerald-700 text-white transition-all shadow-md flex items-center gap-1.5 cursor-pointer">
+              <span>✓</span> ประมวลผลและนำเข้าทันที
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
